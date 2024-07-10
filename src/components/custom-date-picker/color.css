@@ -1,0 +1,113 @@
+:root {
+    --rmdp-primary-theme: #3d9970;
+    --rmdp-secondary-theme: #87ad92;
+    --rmdp-shadow-theme: #87ad92;
+    --rmdp-today-theme: #2c5e40;
+    --rmdp-hover-theme: #2ecc40;
+    --rmdp-deselect-theme: #39795c;
+    --rmdp-background-theme: #fff;
+    --rmdp-text-theme: #000
+}
+
+.custom-calender .rmdp-wrapper {
+    border: 1px solid var(--rmdp-secondary-theme);
+    box-shadow: 0 0 5px var(--rmdp-secondary-theme);
+    background-color: var(--rmdp-primary-theme);
+}
+
+.custom-calender .rmdp-panel-body li {
+    background-color: var(--rmdp-primary-theme);
+    box-shadow: 0 0 2px var(--rmdp-secondary-theme);
+}
+
+.custom-calender .rmdp-week-day {
+    color: var(--rmdp-primary-theme);
+}
+
+.custom-calender .rmdp-day.rmdp-deactive {
+    color: var(--rmdp-secondary-theme);
+}
+
+.custom-calender .rmdp-range {
+    background-color: var(--rmdp-primary-theme);
+    box-shadow: 0 0 3px var(--rmdp-shadow-theme);
+}
+
+.custom-calender .rmdp-arrow {
+    border: solid var(--rmdp-primary-theme);
+    border-width: 0 2px 2px 0;
+}
+
+.custom-calender .rmdp-arrow-container:hover {
+    background-color: var(--rmdp-primary-theme);
+    box-shadow: 0 0 3px var(--rmdp-secondary-theme);
+}
+
+.custom-calender .rmdp-panel-body::-webkit-scrollbar-thumb {
+    background: var(--rmdp-primary-theme);
+}
+
+.custom-calender .rmdp-day.rmdp-today span {
+    background-color: var(--rmdp-today-theme);
+}
+
+.custom-calender .rmdp-rtl .rmdp-panel {
+    border-left: unset;
+    border-right: 1px solid var(--rmdp-secondary-theme);
+}
+
+.custom-calender .rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: var(--rmdp-primary-theme);
+    box-shadow: 0 0 3px var(--rmdp-shadow-theme);
+}
+
+.custom-calender .rmdp-day:not(.rmdp-day-hidden) span:hover {
+    background-color: var(--rmdp-hover-theme) !important;
+}
+
+.custom-calender .b-deselect {
+    color: var(--rmdp-deselect-theme);
+    background-color: white;
+}
+
+.custom-calender .rmdp-action-button {
+    color: var(--rmdp-primary-theme);
+}
+
+.custom-calender .rmdp-button:not(.rmdp-action-button) {
+    background-color: var(--rmdp-primary-theme);
+}
+
+.custom-calender .rmdp-button:not(.rmdp-action-button):hover {
+    background-color: var(--rmdp-deselect-theme);
+}
+
+.rmdp-wrapper {
+    background-color: var(--rmdp-background-theme) !important;
+}
+
+.rmdp-time-picker div input {
+    font-family: inherit;
+    background-color: var(--rmdp-background-theme) !important;
+    color: var(--rmdp-text-theme) !important;
+}
+
+.rmdp-time-picker {
+    color: var(--rmdp-text-theme) !important;
+}
+
+.rmdp-ep-arrow:after {
+    background-color: var(--rmdp-background-theme) !important;
+}
+
+.rmdp-ep-arrow {
+    border-color: var(--rmdp-background-theme) !important;
+}
+
+.rmdp-header-values {
+    color: var(--rmdp-text-theme) !important;
+}
+
+.rmdp-day {
+    color: var(--rmdp-text-theme) !important;
+}

@@ -1,0 +1,1 @@
+export type {IUseFormInput} from "./input-list/type"
