@@ -1,7 +1,7 @@
-import Form from "./components/input-list/Form.tsx";
 import {useForm} from "react-hook-form";
-import {TFormSchema} from "./components/input-list/type";
 import "./index.css"
+import {TFormSchema} from "./lib/components/input-list/type";
+import {Form} from "./lib";
 
 function App() {
 

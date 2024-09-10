@@ -4,15 +4,12 @@ import React, { ReactNode } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 import { TypographyProps } from '@mui/material/Typography';
 import { CustomAutocompleteProps } from '../custom-auto-complete/CustomAutoComplete';
-import { ICarLicencePlateProps } from '../licence-plate/car-licencePlate/CarLicencePlate';
-import { IMotorLicencePlateProps } from '../licence-plate/motorcycle-licencePlate/MotorcycleLicencePlate';
 import { TextFieldProps } from '@mui/material/TextField';
 import { ICustomCheckboxProps } from './components/UFCheckbox';
 import { ICustomDatePickerProps } from '../custom-date-picker/CustomDatePicker';
 import { ICustomNumericInputProps } from '../custom-input/CustomNumericInput';
 import { RadioProps } from '@mui/material/Radio';
-import { Theme } from '@mui/material/styles';
-import {CheckboxListProps} from "../input-list/checkbox-list/CheckboxList";
+import {CheckboxListProps} from "./checkbox-list/CheckboxList.tsx";
 
 export interface IFormOption {
   value: string | number;
@@ -36,18 +33,6 @@ interface IBaseForm {
   withoutHelperText?: boolean;
   variant?: 'outlined' | 'filled' | 'standard';
   inputLabelMode?: TInputLabelMode;
-}
-
-interface ICarLicencePlateForm extends IBaseForm {
-  type?: 'car-licencePlate';
-  props?: ICarLicencePlateProps;
-  itemProps?: ICarLicencePlateProps;
-}
-
-interface IMotorLicencePlateForm extends IBaseForm {
-  type?: 'motorcycle-licencePlate';
-  props?: IMotorLicencePlateProps;
-  itemProps?: IMotorLicencePlateProps;
 }
 
 interface IRadioForm extends IBaseForm {
