@@ -6,7 +6,7 @@ import "./index.css"
 function App() {
 
   const form = useForm()
-  const inputList: TFormSchema = [
+  const schema: TFormSchema = [
     {
       name: "test",
       label: "test",
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <>
-      <Form inputList={inputList} form={form} />
+      <Form schema={schema} form={form} />
     </>
   )
 }

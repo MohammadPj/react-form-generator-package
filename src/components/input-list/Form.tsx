@@ -22,7 +22,7 @@ import { TextFieldProps } from '@mui/material/TextField';
 //------------------------------------------------------------------------
 
 interface FormProps {
-  inputList: TFormSchema;
+  schema: TFormSchema;
   form: UseFormReturn<any, any, any>;
   gridContainerProps?: GridProps;
   gridItemProps?: GridProps;
@@ -35,7 +35,7 @@ interface FormProps {
 }
 
 const Form: FC<FormProps> = ({
-  inputList,
+  schema,
   form,
   gridItemProps,
   gridContainerProps,
@@ -55,7 +55,7 @@ const Form: FC<FormProps> = ({
       alignItems={'flex-start'}
       {...gridContainerProps}
     >
-      {inputList?.map((inputProp) => (
+      {schema?.map((inputProp) => (
         <Grid
           key={inputProp.name}
           item
