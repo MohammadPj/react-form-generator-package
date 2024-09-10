@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import {IDatePickerForm} from '../type';
 import { Controller, UseFormReturn } from 'react-hook-form';
-import { CustomDatePicker } from '../../index';
+import CustomDatePicker from "../../custom-date-picker/CustomDatePicker.tsx";
 
 type Props = IDatePickerForm & {
   form: UseFormReturn<any>;
@@ -17,7 +17,6 @@ const UFDatePicker: FC<Props> = ({
   label,
   error,
   readonly,
-  helperText,
   withoutHelperText,
   variant,
   inputLabelMode = 'static',
