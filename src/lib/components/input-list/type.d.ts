@@ -9,7 +9,7 @@ import { ICustomCheckboxProps } from './components/UFCheckbox';
 import { ICustomDatePickerProps } from '../custom-date-picker/CustomDatePicker';
 import { ICustomNumericInputProps } from '../custom-input/CustomNumericInput';
 import { RadioProps } from '@mui/material/Radio';
-import {CheckboxListProps} from "./checkbox-list/CheckboxList.tsx";
+import {CheckboxListProps} from "./checkbox-list/CheckboxList";
 
 export interface IFormOption {
   value: string | number;

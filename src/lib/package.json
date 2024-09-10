@@ -1,6 +1,6 @@
 {
   "name": "react-hook-form-gen",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "index.ts",
   "scripts": {
     "dev": "vite",

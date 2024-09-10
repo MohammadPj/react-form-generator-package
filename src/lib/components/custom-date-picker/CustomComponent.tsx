@@ -3,7 +3,7 @@ import { InputAdornment, TextField, TextFieldVariants } from "@mui/material";
 
 import { BaseTextFieldProps } from "@mui/material/TextField/TextField";
 import { TInputLabelMode } from "../input-list/type";
-import SvgCalendar from "../../assets/icons/Calendar.tsx";
+import SvgCalendar from "../../assets/icons/Calendar";
 
 interface Props extends BaseTextFieldProps {
   openCalendar: any;

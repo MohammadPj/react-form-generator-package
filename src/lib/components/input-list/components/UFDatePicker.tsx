@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import {IDatePickerForm} from '../type';
 import { Controller, UseFormReturn } from 'react-hook-form';
-import CustomDatePicker from "../../custom-date-picker/CustomDatePicker.tsx";
+import CustomDatePicker from "../../custom-date-picker/CustomDatePicker";
 
 type Props = IDatePickerForm & {
   form: UseFormReturn<any>;

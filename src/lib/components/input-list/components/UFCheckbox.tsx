@@ -44,7 +44,6 @@ const UFCheckbox: FC<Props> = ({
             sx={{ ...sx }}
             slotProps={{
               typography: {
-                variant: "caption3",
                 ...props?.slotProps?.typography,
               },
             }}
@@ -63,7 +62,6 @@ const UFCheckbox: FC<Props> = ({
           />
           {!withoutHelperText && (
             <Typography
-              variant="caption3"
               sx={{
                 height: 23,
                 width: "max-content",

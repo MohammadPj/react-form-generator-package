@@ -8,7 +8,7 @@ import {
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField, {TextFieldProps} from '@mui/material/TextField';
 import { TInputLabelMode } from '../../input-list/type';
-import InfoCircle from "../../../assets/icons/InfoCircle.tsx";
+import InfoCircle from "../../../assets/icons/InfoCircle";
 
 interface Props {
   params: AutocompleteRenderInputParams;

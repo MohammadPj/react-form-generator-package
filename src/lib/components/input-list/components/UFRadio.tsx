@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
 import RadioGroup from '@mui/material/RadioGroup';
-import Radio, { RadioProps } from '@mui/material/Radio';
+import Radio from '@mui/material/Radio';
 
 type Props = IRadioForm & {
   form: UseFormReturn<any>;
@@ -34,7 +34,7 @@ const UFRadio: FC<Props> = ({
       name={name}
       rules={{ ...rules }}
       defaultValue={defaultValue}
-      render={({ field: { onChange, name, value } }) => (
+      render={({ field: { onChange, value } }) => (
         <FormControl sx={{ display: 'block' }}>
           {inputLabelMode === 'relative' && (
             <Typography {...labelProps}>{label}</Typography>
@@ -68,7 +68,7 @@ const UFRadio: FC<Props> = ({
           </RadioGroup>
           {!withoutHelperText && (
             <Typography
-              variant='caption3'
+
               sx={{
                 display: 'block',
                 height: 23,

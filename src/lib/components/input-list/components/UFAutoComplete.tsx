@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import {IAutoCompleteForm, IFormOption} from '../type';
-import CustomAutoComplete from "../../custom-auto-complete/CustomAutoComplete.tsx";
+import CustomAutoComplete from "../../custom-auto-complete/CustomAutoComplete";
 
 type Props = IAutoCompleteForm & {
   form: UseFormReturn<any>;
