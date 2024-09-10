@@ -2,7 +2,7 @@ import loadable from '@loadable/component';
 import withErrorBoundary from "./error boundary/withErrorBoundary.tsx";
 import LoadingComponent from "./error boundary/LoadingComponent.tsx";
 
-export {default as InputListWithUseForm} from "./input-list/Form.tsx"
+export {default as Form} from "./input-list/Form.tsx"
 
 export const UFAutoComplete = withErrorBoundary(
   loadable(() => import('./input-list/components/UFAutoComplete'), {
