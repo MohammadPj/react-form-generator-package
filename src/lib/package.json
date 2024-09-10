@@ -1,6 +1,6 @@
 {
   "name": "react-hook-form-gen",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "index.ts",
   "scripts": {
     "dev": "vite",
@@ -22,10 +22,10 @@
     "react-window": "^1.8.10",
     "stylis-plugin-rtl": "^2.1.1",
     "@types/lodash": "^4.17.6",
+    "@types/loadable__component": "^5.13.9",
     "@types/react-window": "^1.8.8"
   },
   "devDependencies": {
-    "@types/loadable__component": "^5.13.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
