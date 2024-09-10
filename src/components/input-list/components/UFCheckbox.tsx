@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IUseFormInput } from "../type";
+import {ICheckboxForm} from "../type";
 import { CheckboxProps } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
@@ -8,14 +8,15 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { SwitchBaseProps } from "@mui/material/internal/SwitchBase";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 
-interface Props extends IUseFormInput {
+export interface ICustomCheckboxProps {
+  inputProps: SwitchBaseProps["inputProps"];
+  slotProps: { typography?: TypographyProps };
+  checkBoxProps: CheckboxProps;
+}
+
+type Props = ICheckboxForm & {
   form: UseFormReturn<any>;
   error: any;
-  props: {
-    inputProps: SwitchBaseProps["inputProps"];
-    slotProps: { typography?: TypographyProps };
-    checkBoxProps: CheckboxProps;
-  };
 }
 
 const UFCheckbox: FC<Props> = ({
@@ -43,8 +44,7 @@ const UFCheckbox: FC<Props> = ({
             sx={{ ...sx }}
             slotProps={{
               typography: {
-                fontSize: 12,
-                fontWeight: 400,
+                variant: "caption3",
                 ...props?.slotProps?.typography,
               },
             }}
@@ -63,12 +63,11 @@ const UFCheckbox: FC<Props> = ({
           />
           {!withoutHelperText && (
             <Typography
-              fontSize={12}
-              fontWeight={400}
+              variant="caption3"
               sx={{
                 height: 23,
                 width: "max-content",
-                color: error ? "error.main" : "text.primary",
+                color: error ? "error.4" : "text.primary",
               }}
             >
               {error?.message ?? helperText ?? " "}

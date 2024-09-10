@@ -1,17 +1,16 @@
-import React, { FC } from "react";
-import { IUseFormInput } from "../type";
-import { Controller, UseFormReturn } from "react-hook-form";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import Typography from "@mui/material/Typography";
-import RadioGroup from "@mui/material/RadioGroup";
-import Radio, { RadioProps } from "@mui/material/Radio";
+import React, { FC } from 'react';
+import { IRadioForm } from '../type';
+import { Controller, UseFormReturn } from 'react-hook-form';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import Typography from '@mui/material/Typography';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio, { RadioProps } from '@mui/material/Radio';
 
-interface Props extends IUseFormInput {
+type Props = IRadioForm & {
   form: UseFormReturn<any>;
   error: any;
-  props: RadioProps;
-}
+};
 
 const UFRadio: FC<Props> = ({
   form,
@@ -25,6 +24,9 @@ const UFRadio: FC<Props> = ({
   helperText,
   withoutHelperText,
   props,
+  label,
+  labelProps,
+  inputLabelMode,
 }) => {
   return (
     <Controller
@@ -32,12 +34,15 @@ const UFRadio: FC<Props> = ({
       name={name}
       rules={{ ...rules }}
       defaultValue={defaultValue}
-      render={({ field: { onChange,  value } }) => (
-        <FormControl sx={{ display: "block" }}>
+      render={({ field: { onChange, name, value } }) => (
+        <FormControl sx={{ display: 'block' }}>
+          {inputLabelMode === 'relative' && (
+            <Typography {...labelProps}>{label}</Typography>
+          )}
           <RadioGroup
             row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="row-radio-buttons-group"
+            aria-labelledby='demo-row-radio-buttons-group-label'
+            name='row-radio-buttons-group'
             onChange={onChange}
             value={value}
             sx={{ gap: 5 }}
@@ -48,7 +53,7 @@ const UFRadio: FC<Props> = ({
                 disabled={disabled}
                 value={option.value}
                 sx={sx}
-                control={<Radio {...props} />}
+                control={<Radio {...props} checked={value === option.value} />}
                 label={
                   <Typography
                     fontWeight={400}
@@ -63,16 +68,15 @@ const UFRadio: FC<Props> = ({
           </RadioGroup>
           {!withoutHelperText && (
             <Typography
-              fontSize={12}
-              fontWeight={400}
+              variant='caption3'
               sx={{
-                display: "block",
+                display: 'block',
                 height: 23,
-                width: "max-content",
-                color: error ? "error.main" : "text.primary",
+                width: 'max-content',
+                color: error ? 'error.4' : 'text.primary',
               }}
             >
-              {error?.message ?? helperText ?? " "}
+              {error?.message ?? helperText ?? ' '}
             </Typography>
           )}
         </FormControl>

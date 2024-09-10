@@ -1,15 +1,13 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
-import { IUseFormInput } from "../type";
+import {ICurrencyForm} from "../type";
+import CustomNumericInput from "../../custom-input/CustomNumericInput";
 import { useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import CustomNumericInput from "../../custom-input/CustomNumericInput.tsx";
 
-interface Props extends IUseFormInput {
+type Props = ICurrencyForm & {
   form: UseFormReturn<any>;
   error: any;
-  itemProps?: any;
-  currencyIcon?: ReactNode | string;
 }
 
 const UfCurrency: FC<Props> = ({
@@ -48,12 +46,6 @@ const UfCurrency: FC<Props> = ({
               target: { value: value },
             });
           }}
-          InputProps={{
-            // [direction === "rtl" ? "startAdornment" : "endAdornment"]:
-            //   currencyIcon,
-            sx:{gap:2},
-            endAdornment: props?.currencyIcon ?? currencyIcon,
-          }}
           onBlur={onBlur}
           fullWidth
           id={name}
@@ -63,6 +55,7 @@ const UfCurrency: FC<Props> = ({
           variant={variant}
           {...(inputLabelMode === "static" && { hiddenLabel: true })}
           {...(inputLabelMode === "relative" && { label: label })}
+
           sx={{
             ...sx,
             ".MuiInputBase-root": {
@@ -84,7 +77,7 @@ const UfCurrency: FC<Props> = ({
                 }),
             backgroundColor: readonly ? "background.paper" : "unset",
             borderRadius: "8px",
-            pointerEvents: readonly ? "none" : "",
+            pointerEvents: readonly ? "none" : "unset",
             "& .MuiOutlinedInput-input": {
               backgroundColor: readonly ? "background.paper" : "unset",
               color: readonly ? "text.secondary" : "unset",
@@ -97,6 +90,11 @@ const UfCurrency: FC<Props> = ({
           inputProps={{ readOnly: readonly }}
           {...itemProps}
           {...props}
+          InputProps={{
+            sx:{gap:2},
+            endAdornment: props?.currencyIcon ?? currencyIcon,
+            ...itemProps?.InputProps, ...props?.InputProps
+          }}
         />
       )}
     />

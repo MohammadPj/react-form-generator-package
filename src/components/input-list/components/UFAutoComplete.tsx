@@ -1,13 +1,11 @@
-import { FC, SyntheticEvent } from "react";
-import { Controller, UseFormReturn } from "react-hook-form";
-import { IUseFormInput } from "../type";
-import { TextFieldProps } from "@mui/material/TextField";
+import { FC } from 'react';
+import { Controller, UseFormReturn } from 'react-hook-form';
+import {IAutoCompleteForm, IFormOption} from '../type';
 import CustomAutoComplete from "../../custom-auto-complete/CustomAutoComplete.tsx";
 
-interface Props extends IUseFormInput {
+type Props = IAutoCompleteForm & {
   form: UseFormReturn<any>;
   error: any;
-  itemProps?: TextFieldProps;
 }
 
 const UFAutoComplete: FC<Props> = ({
@@ -28,38 +26,61 @@ const UFAutoComplete: FC<Props> = ({
   inputLabelMode,
   variant,
   itemProps,
+  onReachEnd
 }) => {
+
+  // Convert defaultValue if it's an array of strings
+  const convertDefaultValue = (defaultValue: any,options?:IFormOption[]) => {
+    // Check if options are undefined or null, return an empty array or default value
+    if (!options || !Array.isArray(options)) {
+      return [];  // or some other default value
+    }
+
+    // Convert value to corresponding object with label and value
+    if (Array.isArray(defaultValue)) {
+      return defaultValue.map(val => {
+        const matchedOption = options.find(option => option.value === val);
+        return matchedOption ? matchedOption : null;
+      }).filter(Boolean);
+    } else {
+      const matchedOption = options.find(option => option.value === defaultValue);
+      return matchedOption ? matchedOption : null;
+    }
+
+  };
+  
   return (
     <Controller
       control={form?.control}
       name={name}
       rules={{ ...rules }}
-      defaultValue={defaultValue}
+      defaultValue={convertDefaultValue(defaultValue,options)}
       render={({ field }) => (
         <CustomAutoComplete
-          {...field?.onBlur}
+          {...field}
           label={label}
           hideLabel={true}
-          placeholder={label ?? placeholder}
+          placeholder={typeof label === "string" ? label : placeholder}
           inputLabelMode={inputLabelMode}
           helperText={error?.message ?? helperText}
           options={options || []}
           selectedOptions={field.value}
-          sx={{ width: "100%", ...sx }}
-          inputMaxHeight={"120px"}
+          value={convertDefaultValue(field?.value,options) as any}
+          // defaultValue={convertDefaultValue(field?.value,options)}
+          sx={{ width: '100%', ...sx }}
+          inputMaxHeight={'120px'}
           limitTags={2}
           validation={{ isInvalid: !!error, message: error?.message }}
           showSelectedCount
           disabled={disabled}
           id={name}
           readOnly={readonly}
-          multiple
           variant={variant}
           isLoading={isLoading}
-          disableCloseOnSelect
           isOptionEqualToValue={(option: any, value: any) => {
-            return option.value === value.value;
+            return option?.value === value?.value;
           }}
+          onReachEnd={onReachEnd}
           // renderOption={(
           //   props: HTMLAttributes<HTMLLIElement>,
           //   option: any,
@@ -70,8 +91,18 @@ const UFAutoComplete: FC<Props> = ({
           //     {option.label}
           //   </li>
           // )}
-          onChange={(_e: SyntheticEvent<Element, Event>, newValue: any) => {
-            field.onChange(newValue);
+          onChange={(_: any, newValue: any) => {
+
+            const isMultiple = Array.isArray(newValue);
+
+            if (isMultiple) {
+              // Handle multiple selection
+              const valuesArray = newValue.map(item => item.value);
+              field.onChange(valuesArray);
+            } else {
+              // Handle single selection
+              field.onChange(newValue ? newValue.value : "");
+            }
           }}
           {...props}
           {...itemProps}

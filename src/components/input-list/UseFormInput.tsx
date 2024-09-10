@@ -1,284 +1,149 @@
-import React, { FC } from "react";
+import { FC } from 'react';
 
 //@3rd Party
-import { Controller } from "react-hook-form";
-import { UseFormReturn } from "react-hook-form";
-import { IUseFormInput } from "./type";
+import { UseFormReturn } from 'react-hook-form';
+import {
+  IAutoCompleteForm,
+  ICheckboxForm,
+  ICurrencyForm,
+  IDatePickerForm,
+  IMultiCheckboxForm,
+  IMultiSelectForm,
+  IRadioForm,
+  ISelectForm,
+  ITextAreaForm,
+  ITextFieldForm,
+  TSchema,
+} from './type';
 //----------------------------------------------------------------------------------------------
 
 // @Components
-import UFTextField from "./components/UFTextField";
-import UFSelect from "./components/UFSelect";
-import UFCheckbox from "./components/UFCheckbox";
-import UFDatePicker from "./components/UFDatePicker";
-import UFTextArea from "./components/UFTextArea";
-import UfCurrency from "./components/UFCurrency";
-import UFMultiSelect from "./components/UFMultiSelect";
-import UFAutoComplete from "./components/UFAutoComplete";
-import { TextFieldProps } from "@mui/material/TextField";
-import UFRadio from "./components/UFRadio";
-import CarLicencePlate from "./components/licence-plate/car-licencePlate/CarLicencePlate.tsx";
-import MotorcycleLicencePlate from "./components/licence-plate/motorcycle-licencePlate/MotorcycleLicencePlate.tsx";
+import { UFTextField } from '../index';
+import { UFSelect } from '../index';
+import { UFCheckbox } from '../index';
+import { UFDatePicker } from '../index';
+import { UFTextArea } from '../index';
+import { UFCurrency } from '../index';
+import { UFMultiSelect } from '../index';
+import { UFAutoComplete } from '../index';
+import { UFRadio } from '../index';
+import { UFMultiCheckbox } from '../index';
+import { TextFieldProps } from '@mui/material/TextField';
+
 //---------------------------------------------------------------------------------------------------------
 
-export interface IUseFormInputProps extends IUseFormInput {
+type IUseFormInputProps = TSchema & {
   form: UseFormReturn<any>;
-  error: any;
-  itemProps?: any;
-  inputVariants?: TextFieldProps["variant"];
-}
+  error?: any;
+  inputVariants?: TextFieldProps['variant'];
+};
 
 const UseFormInput: FC<IUseFormInputProps> = ({
-  name,
-  label,
-  type,
-  options,
   form,
   error,
-  placeholder,
-  defaultValue,
-  sx,
-  rules,
-  readonly,
-  disabled,
-  props,
-  itemProps,
-  helperText,
-  isLoading,
-  withoutHelperText,
-  variant,
-  inputLabelMode,
   inputVariants,
+  type,
+  ...inputFormProps
 }) => {
   switch (type) {
-    case "car-licencePlate":
-      return (
-        <Controller
-          control={form?.control}
-          name={name}
-          rules={{ ...rules }}
-          render={({ field: { onChange,  value } }) => (
-            <CarLicencePlate
-              disabled={disabled}
-              onChange={onChange}
-              tag={value}
-              {...props}
-            />
-          )}
-        />
-      );
 
-    case "motorcycle-licencePlate":
-      return (
-        <Controller
-          control={form?.control}
-          name={name}
-          rules={{ ...rules }}
-          render={({ field: { onChange,  value } }) => (
-            <MotorcycleLicencePlate
-              disabled={disabled}
-              onChange={onChange}
-              defaultValue={value}
-              {...props}
-            />
-          )}
-        />
-      );
-
-    case "radio":
+    case 'radio':
       return (
         <UFRadio
+          {...(inputFormProps as IRadioForm)}
           form={form}
           error={error}
-          name={name}
-          label={label}
-          placeholder={placeholder}
-          sx={sx}
-          rules={rules}
-          disabled={disabled}
-          readonly={readonly}
-          defaultValue={defaultValue}
-          options={options}
-          props={props}
-          helperText={helperText}
-          variant={variant ?? inputVariants}
-          withoutHelperText={withoutHelperText}
-          inputLabelMode={inputLabelMode}
+          variant={inputFormProps.variant ?? inputVariants}
         />
       );
 
-    case "select":
+    case 'select':
       return (
         <UFSelect
+          {...(inputFormProps as ISelectForm)}
           form={form}
           error={error}
-          name={name}
-          label={label}
-          placeholder={placeholder}
-          sx={sx}
-          rules={rules}
-          disabled={disabled}
-          readonly={readonly}
-          defaultValue={defaultValue}
-          options={options}
-          itemProps={itemProps}
-          props={props}
-          helperText={helperText}
-          variant={variant ?? inputVariants}
-          withoutHelperText={withoutHelperText}
-          inputLabelMode={inputLabelMode}
+          variant={inputFormProps.variant ?? inputVariants}
         />
       );
 
-    case "multi-select":
+    case 'multi-select':
       return (
         <UFMultiSelect
+          {...(inputFormProps as IMultiSelectForm)}
           form={form}
           error={error}
-          name={name}
-          label={label}
-          placeholder={placeholder}
-          sx={sx}
-          rules={rules}
-          disabled={disabled}
-          readonly={readonly}
-          defaultValue={defaultValue}
-          options={options}
-          props={props}
-          itemProps={itemProps}
-          helperText={helperText}
-          variant={variant ?? inputVariants}
-          withoutHelperText={withoutHelperText}
-          inputLabelMode={inputLabelMode}
+          variant={inputFormProps.variant ?? inputVariants}
         />
       );
 
-    case "auto-complete":
+    case 'auto-complete':
       return (
         <UFAutoComplete
+          {...(inputFormProps as IAutoCompleteForm)}
           form={form}
           error={error}
-          name={name}
-          label={label}
-          placeholder={placeholder}
-          sx={sx}
-          rules={rules}
-          disabled={disabled}
-          readonly={readonly}
-          defaultValue={defaultValue}
-          options={options}
-          props={props}
-          itemProps={itemProps}
-          isLoading={isLoading}
-          helperText={helperText}
-          variant={variant ?? inputVariants}
-          withoutHelperText={withoutHelperText}
-          inputLabelMode={inputLabelMode}
+          variant={inputFormProps.variant ?? inputVariants}
         />
       );
 
-    case "checkbox":
+    case 'checkbox':
       return (
         <UFCheckbox
+          {...(inputFormProps as ICheckboxForm)}
           form={form}
-          name={name}
-          label={label}
-          rules={rules}
-          disabled={disabled}
-          sx={sx}
-          props={props}
           error={error}
-          helperText={helperText}
-          withoutHelperText={withoutHelperText}
-          inputLabelMode={inputLabelMode}
+          variant={inputFormProps.variant ?? inputVariants}
         />
       );
 
-    case "date-picker":
+    case 'date-picker':
       return (
         <UFDatePicker
+          {...(inputFormProps as IDatePickerForm)}
           form={form}
           error={error}
-          name={name}
-          label={label}
-          rules={rules}
-          disabled={disabled}
-          readonly={readonly}
-          defaultValue={defaultValue}
-          props={props}
-          sx={sx}
-          itemProps={itemProps}
-          helperText={helperText}
-          variant={variant ?? inputVariants}
-          withoutHelperText={withoutHelperText}
-          inputLabelMode={inputLabelMode}
+          variant={inputFormProps.variant ?? inputVariants}
         />
       );
 
-    case "text-area":
+    case 'text-area':
       return (
         <UFTextArea
+          {...(inputFormProps as ITextAreaForm)}
           form={form}
           error={error}
-          name={name}
-          label={label}
-          type={type}
-          sx={sx}
-          rules={rules}
-          disabled={disabled}
-          defaultValue={defaultValue}
-          readonly={readonly}
-          placeholder={placeholder}
-          props={props}
-          variant={variant ?? inputVariants}
-          helperText={helperText}
-          withoutHelperText={withoutHelperText}
-          inputLabelMode={inputLabelMode}
+          variant={inputFormProps.variant ?? inputVariants}
         />
       );
 
-    case "currency":
+    case 'currency':
       return (
-        <UfCurrency
+        <UFCurrency
+          {...(inputFormProps as ICurrencyForm)}
           form={form}
           error={error}
-          name={name}
-          label={label}
-          type={type}
-          sx={sx}
-          rules={rules}
-          disabled={disabled}
-          defaultValue={defaultValue}
-          readonly={readonly}
-          placeholder={placeholder}
-          itemProps={itemProps}
-          props={props}
-          withoutHelperText={withoutHelperText}
-          variant={variant ?? inputVariants}
-          inputLabelMode={inputLabelMode}
+          variant={inputFormProps.variant ?? inputVariants}
+        />
+      );
+
+    case 'multi-checkbox':
+      return (
+        <UFMultiCheckbox
+          {...(inputFormProps as IMultiCheckboxForm)}
+          form={form}
+          error={error}
+          variant={inputFormProps.variant ?? inputVariants}
         />
       );
 
     default:
       return (
         <UFTextField
+          {...(inputFormProps as ITextFieldForm)}
           form={form}
           error={error}
-          name={name}
-          label={label}
-          type={type}
-          sx={sx}
-          rules={rules}
-          disabled={disabled}
-          defaultValue={defaultValue}
-          readonly={readonly}
-          placeholder={placeholder}
-          itemProps={itemProps}
-          props={props}
-          helperText={helperText}
-          withoutHelperText={withoutHelperText}
-          variant={variant ?? inputVariants}
-          inputLabelMode={inputLabelMode}
+          variant={inputFormProps.variant ?? inputVariants}
         />
       );
   }

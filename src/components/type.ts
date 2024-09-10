@@ -1,1 +1,1 @@
-export type {IUseFormInput} from "./input-list/type"
+export type {TFormSchema} from "./input-list/type"

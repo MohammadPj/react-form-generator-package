@@ -1,42 +1,40 @@
-import React, { FC, isValidElement } from "react";
+import React, { FC, isValidElement } from 'react';
 
 //@3rd Party
-import lodash from "lodash";
-import { UseFormReturn } from "react-hook-form";
+import lodash from 'lodash';
+import { UseFormReturn } from 'react-hook-form';
 //------------------------------------------------------------------------
 
 //@Mui
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import { BoxProps } from "@mui/material/Box";
-import { GridProps } from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import { TypographyProps } from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import { GridProps } from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { TypographyProps } from '@mui/material/Typography';
 //------------------------------------------------------------------------
 
 //@Components
-// import InputError from '~/core/components/input-list/InputError'
-import { IUseFormInput, TInputLabelMode } from "./type";
-import UseFormInput from "./UseFormInput";
-import { TextFieldProps } from "@mui/material/TextField";
+import { TFormSchema, TInputLabelMode } from './type';
+import UseFormInput from './UseFormInput';
+import { TextFieldProps } from '@mui/material/TextField';
 
 //------------------------------------------------------------------------
 
-interface Props {
-  inputList: IUseFormInput[];
+interface FormProps {
+  inputList: TFormSchema;
   form: UseFormReturn<any, any, any>;
   gridContainerProps?: GridProps;
   gridItemProps?: GridProps;
   itemProps?: any;
-  labelsProps?: Partial<TypographyProps<"label", {}>> | undefined;
-  errorProps?: BoxProps;
+  labelsProps?: Partial<TypographyProps<'label', {}>> | undefined;
   hideRequiredStar?: boolean;
   inputLabelMode?: TInputLabelMode;
-  inputVariants?: TextFieldProps["variant"];
+  inputVariants?: TextFieldProps['variant'];
+  withoutHelperText?: boolean
 }
 
-const InputListWithUseForm: FC<Props> = ({
+const Form: FC<FormProps> = ({
   inputList,
   form,
   gridItemProps,
@@ -44,16 +42,17 @@ const InputListWithUseForm: FC<Props> = ({
   labelsProps,
   itemProps,
   hideRequiredStar = false,
-  inputLabelMode = "static",
-  inputVariants = "outlined"
+  inputLabelMode = 'static',
+  inputVariants = 'outlined',
+  withoutHelperText
 }) => {
   return (
     <Grid
       container
-      columnSpacing={10}
+      columnSpacing={4}
       rowSpacing={0}
-      rowGap={6}
-      alignItems={"flex-start"}
+      rowGap={2}
+      alignItems={'flex-start'}
       {...gridContainerProps}
     >
       {inputList?.map((inputProp) => (
@@ -61,43 +60,42 @@ const InputListWithUseForm: FC<Props> = ({
           key={inputProp.name}
           item
           xs={4}
-          position={"relative"}
+          width={'100%'}
+          position={'relative'}
+          height={'100%'}
           {...gridItemProps}
           {...inputProp.gridItemProp}
         >
-          {inputLabelMode === "static" && inputProp.type !== "checkbox" && (
-            <Box display={"flex"}>
+          {inputLabelMode === 'static' && inputProp.type !== 'checkbox' && (
+            <Box display={'flex'}>
               <Typography
-                fontSize={12}
-                fontWeight={400}
                 flexGrow={1}
                 width={0}
-                component={"label"}
-                display={"inline-block"}
+                component={'label'}
+                display={'inline-block'}
                 mb={2}
                 htmlFor={inputProp.name}
                 color={
                   lodash.result(form?.formState?.errors, `${inputProp.name}`)
-                    ? "error"
-                    : "text.primary"
+                    ? 'error'
+                    : 'text.16'
                 }
                 noWrap
                 title={
                   !isValidElement(inputProp?.label)
-                    ? inputProp?.label?.toString() || ""
-                    : ""
+                    ? inputProp?.label?.toString() || ''
+                    : ''
                 }
                 {...labelsProps}
                 {...inputProp.labelProps}
               >
-                <Stack direction="row">
+                <Stack direction='row'>
                   {inputProp.label}
                   {inputProp.rules?.required && !hideRequiredStar && (
                     <Typography
+                      component={'span'}
+                      color={'error'}
                       fontSize={12}
-                      fontWeight={600}
-                      component={"span"}
-                      color={"error"}
                     >
                       *
                     </Typography>
@@ -108,12 +106,13 @@ const InputListWithUseForm: FC<Props> = ({
           )}
 
           <UseFormInput
-            form={form}
-            error={lodash.result(form?.formState?.errors, `${inputProp.name}`)}
-            itemProps={itemProps}
             {...inputProp}
+            form={form}
+            itemProps={itemProps}
+            error={lodash.result(form?.formState?.errors, `${inputProp.name}`)}
             inputLabelMode={inputLabelMode}
             inputVariants={inputVariants}
+            withoutHelperText={withoutHelperText}
           />
 
           {/*<InputError*/}
@@ -140,4 +139,4 @@ const InputListWithUseForm: FC<Props> = ({
   );
 };
 
-export default InputListWithUseForm;
+export default Form;

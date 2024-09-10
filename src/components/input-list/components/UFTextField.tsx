@@ -1,12 +1,11 @@
 import React, { ChangeEvent, FC } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
-import TextField, { TextFieldProps } from "@mui/material/TextField";
-import { IUseFormInput } from "../type";
+import TextField from "@mui/material/TextField";
+import {ITextFieldForm} from "../type";
 
-interface Props extends IUseFormInput {
+type Props = ITextFieldForm & {
   form: UseFormReturn<any>;
   error: any;
-  itemProps?: TextFieldProps;
 }
 
 const UFTextField: FC<Props> = ({
@@ -44,12 +43,7 @@ const UFTextField: FC<Props> = ({
       onChange(value);
     }
   };
-  //This can be used when you want to show white space error
-  // const trapSpacesForRequiredFields = (value: any) => {
-  //   if (rules?.required) {
-  //     return !!value.trim()
-  //   } else return
-  // }
+
   return (
     <Controller
       control={form?.control}
@@ -60,24 +54,17 @@ const UFTextField: FC<Props> = ({
         <TextField
           {...form?.register(name, {
             ...rules,
-            //This can be used when you want to show white space error
-            // pattern: {
-            //   ...rules?.pattern,
-            //   message: 'مقدار ورودی نمی تواند فضای خالی باشد',
-            //   value: /^\S*$/,
-            // },
-            // validate: value => trapSpacesForRequiredFields(value),
           })}
           {...(inputLabelMode === "static" && { hiddenLabel: true })}
           {...(inputLabelMode === "relative" && { label: label })}
           value={field.value}
           variant={variant}
-          onChange={(e) => handleKeyDown(e, field.onChange)}
           type={type === "number" ? "text" : type}
           fullWidth
           id={name}
           error={!!error}
           placeholder={placeholder}
+          onChange={(e) => handleKeyDown(e, field.onChange)}
           sx={{
             ...sx,
           }}

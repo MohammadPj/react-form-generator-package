@@ -1,13 +1,11 @@
-import React, { FC } from "react";
-import { IUseFormInput } from "../type";
-import { Controller, UseFormReturn } from "react-hook-form";
-import { TextFieldProps } from "@mui/material/TextField";
-import CustomDatePicker from "../../custom-date-picker/CustomDatePicker.tsx";
+import React, { FC } from 'react';
+import {IDatePickerForm} from '../type';
+import { Controller, UseFormReturn } from 'react-hook-form';
+import { CustomDatePicker } from '../../index';
 
-interface Props extends IUseFormInput {
+type Props = IDatePickerForm & {
   form: UseFormReturn<any>;
   error: any;
-  itemProps?: TextFieldProps;
 }
 
 const UFDatePicker: FC<Props> = ({
@@ -19,9 +17,10 @@ const UFDatePicker: FC<Props> = ({
   label,
   error,
   readonly,
+  helperText,
   withoutHelperText,
   variant,
-  inputLabelMode = "static",
+  inputLabelMode = 'static',
   props,
   sx,
   itemProps,
@@ -41,7 +40,7 @@ const UFDatePicker: FC<Props> = ({
               id: name,
               variant: variant,
               ...itemProps,
-              sx: { ...sx },
+              sx: { width: '100%', ...sx },
             }}
             error={error}
             disabled={disabled}

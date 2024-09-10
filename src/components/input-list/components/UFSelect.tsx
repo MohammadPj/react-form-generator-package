@@ -1,16 +1,14 @@
 import React, { FC } from "react";
 import FormControl from "@mui/material/FormControl";
-import { TextField} from "@mui/material";
+import { InputLabel, TextField} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import { Controller, UseFormReturn } from "react-hook-form";
-import { IUseFormInput } from "../type";
-import {TextFieldProps} from "@mui/material/TextField";
+import {ISelectForm, ITextFieldForm} from "../type";
 
 
-interface Props extends IUseFormInput {
+type Props = ISelectForm & {
   form: UseFormReturn<any>;
   error: any;
-  itemProps?: TextFieldProps;
 }
 
 const UFSelect: FC<Props> = ({
@@ -40,6 +38,23 @@ const UFSelect: FC<Props> = ({
       render={({ field }) => (
         <>
           <FormControl fullWidth variant={variant}>
+            {/*<InputLabel*/}
+            {/*  id="simple-select-label"*/}
+            {/*  error={!!error}*/}
+            {/*  sx={{*/}
+            {/*    //Handling Placeholder*/}
+            {/*    ...(inputLabelMode === "static" && {*/}
+            {/*      "&.MuiInputLabel-root[data-shrink=true]": {*/}
+            {/*        opacity: "0%",*/}
+            {/*      },*/}
+            {/*      "&.MuiInputLabel-root[data-shrink=false]": {*/}
+            {/*        opacity: "100%",*/}
+            {/*      },*/}
+            {/*    }),*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  {inputLabelMode === "static" ? placeholder : label}*/}
+            {/*</InputLabel>*/}
             <TextField
               select
               {...field}

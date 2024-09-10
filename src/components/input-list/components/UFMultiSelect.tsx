@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 
 //@3rd Party
 import { Controller, UseFormReturn } from "react-hook-form";
-import { IUseFormInput } from "../type";
+import {IMultiSelectForm} from "../type";
 //----------------------------------------------------------------------------------
 
 //@Mui
@@ -12,14 +12,13 @@ import InputLabel from "@mui/material/InputLabel";
 import ListItemText from "@mui/material/ListItemText";
 import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
-import TextField, {TextFieldProps} from "@mui/material/TextField";
+import TextField from "@mui/material/TextField";
 
 //----------------------------------------------------------------------------------
 
-interface Props extends IUseFormInput {
+type Props = IMultiSelectForm & {
   form: UseFormReturn<any>;
   error: any;
-  itemProps?: TextFieldProps;
 }
 
 const UFMultiSelect: FC<Props> = ({
@@ -63,8 +62,6 @@ const UFMultiSelect: FC<Props> = ({
             )}
             <TextField
               select
-              labelid="simple-select-label"
-              multiple
               {...(inputLabelMode === "static" && { hiddenLabel: true })}
               {...(inputLabelMode === "relative" && { label: label })}
               {...field}
@@ -91,7 +88,7 @@ const UFMultiSelect: FC<Props> = ({
                       }),
                     }}
                   >
-                    <Typography fontSize={12} fontWeight={400}>
+                    <Typography>
                       {selected
                         .map((value: string) => selectedItems(value))
                         .join(",")}
@@ -105,14 +102,14 @@ const UFMultiSelect: FC<Props> = ({
               }
               sx={{
                 ".MuiInputBase-root": {
-                  paddingRight: '8px',
+                  paddingRight: (theme) => theme.spacing(2),
                 },
                 ...sx,
-                pointerEvents: readonly ? "none" : "",
+                pointerEvents: readonly ? "none" : "unset",
                 backgroundColor: readonly ? "background.paper" : "unset",
                 "& .MuiOutlinedInput-input.MuiSelect-select": {
                   backgroundColor: readonly ? "background.paper" : "unset",
-                  color: readonly ? "text.disabled" : "unset",
+                  color: readonly ? "text.5" : "unset",
                 },
               }}
               {...props}
