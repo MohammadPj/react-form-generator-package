@@ -8,6 +8,15 @@ type Props = ITextFieldForm & {
   error: any;
 }
 
+export const p2e = (s: string) =>
+  /^[0-9 | \u06F0-\u06F9\s][.\d | \u06F0-\u06F9\s]*(,\d+)?$/g.test(s)
+
+export const checkIfNumber = (value: string) => {
+  const charLength = value.length
+
+  return !charLength || p2e(value)
+}
+
 const UFTextField: FC<Props> = ({
   form,
   name,
@@ -32,12 +41,11 @@ const UFTextField: FC<Props> = ({
     onChange: any,
   ) => {
     const value = e?.target?.value;
-    const checkFirstLetter = value === "";
     if (
       type === "number" &&
-      !checkFirstLetter &&
-      !/^-?\d*\.?\d*$/.test(value)
+      !checkIfNumber(value)
     ) {
+
       e.preventDefault();
     } else {
       onChange(value);

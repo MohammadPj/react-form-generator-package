@@ -10,11 +10,7 @@ function App() {
     {
       name: "test",
       label: "test",
-      type: "multi-checkbox",
-      options: [
-        {label: "a", value: "a"},
-        {label: "b", value: "b"},
-      ]
+      type: "number",
     }
   ]
 

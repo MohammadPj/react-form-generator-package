@@ -144,6 +144,7 @@ const UseFormInput: FC<IUseFormInputProps> = ({
           form={form}
           error={error}
           variant={inputFormProps.variant ?? inputVariants}
+          type={type}
         />
       );
   }

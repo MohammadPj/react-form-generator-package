@@ -115,24 +115,6 @@ const Form: FC<FormProps> = ({
             withoutHelperText={withoutHelperText}
           />
 
-          {/*<InputError*/}
-          {/*  cy-data={`error-${inputProp.name}`}*/}
-          {/*  boxProps={{*/}
-          {/*    position: 'absolute',*/}
-          {/*    bottom: -20,*/}
-          {/*    display: 'flex',*/}
-          {/*    justifyContent: 'start',*/}
-          {/*    alignItems: 'center',*/}
-          {/*    ...errorProps,*/}
-          {/*  }}*/}
-          {/*  error={*/}
-          {/*    (form?.formState?.errors?.[inputProp.name]?.message as string) ||*/}
-          {/*    (lodash.result(*/}
-          {/*      form?.formState?.errors,*/}
-          {/*      `${inputProp.name}.message`*/}
-          {/*    ) as string)*/}
-          {/*  }*/}
-          {/*/>*/}
         </Grid>
       ))}
     </Grid>
