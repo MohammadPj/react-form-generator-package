@@ -71,7 +71,6 @@ const UFAutoComplete: FC<Props> = ({
           inputMaxHeight={'120px'}
           limitTags={2}
           validation={{ isInvalid: !!error, message: error?.message }}
-          showSelectedCount
           disabled={disabled}
           id={name}
           readOnly={readonly}
