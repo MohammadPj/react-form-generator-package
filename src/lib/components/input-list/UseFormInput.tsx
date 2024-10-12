@@ -12,7 +12,7 @@ import {
   IRadioForm,
   ISelectForm,
   ITextAreaForm,
-  ITextFieldForm,
+  ITextFieldForm, IUploaderForm,
   TSchema,
 } from './type';
 //----------------------------------------------------------------------------------------------
@@ -29,6 +29,7 @@ import { UFAutoComplete } from '../index';
 import { UFRadio } from '../index';
 import { UFMultiCheckbox } from '../index';
 import { TextFieldProps } from '@mui/material/TextField';
+import UFUploader from "./components/UFUploader.tsx";
 
 //---------------------------------------------------------------------------------------------------------
 
@@ -131,6 +132,16 @@ const UseFormInput: FC<IUseFormInputProps> = ({
       return (
         <UFMultiCheckbox
           {...(inputFormProps as IMultiCheckboxForm)}
+          form={form}
+          error={error}
+          variant={inputFormProps.variant ?? inputVariants}
+        />
+      );
+
+    case 'uploader':
+      return (
+        <UFUploader
+          {...(inputFormProps as IUploaderForm)}
           form={form}
           error={error}
           variant={inputFormProps.variant ?? inputVariants}

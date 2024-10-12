@@ -2,42 +2,33 @@ import { useForm } from "react-hook-form";
 import "./index.css";
 import { TFormSchema } from "./lib/components/input-list/type";
 import { Form } from "./lib";
-import CustomUploader from "./lib/components/custom-uploader/CustomUploader.tsx";
-import { useState } from "react";
+import {Button} from "@mui/material";
+import Stack from "@mui/material/Stack";
 
 function App() {
-  const [image, setImage] = useState<string>();
   const form = useForm();
 
   const schema: TFormSchema = [
     {
       name: "test",
-      label: "test",
+      label: "salam",
+      type: "uploader",
+      multiple: true
     },
   ];
 
-  const handlePreview = (preview: string[]) => {
-    setImage(preview[0])
-  };
-
-  const handleDelete = () => {
-
+  const handleSubmit = () => {
+    console.log('form values', form.getValues())
   }
 
   return (
-    <>
+    <Stack component={'form'} onSubmit={form.handleSubmit(handleSubmit)}>
       <Form schema={schema} form={form} />
 
-
-      <CustomUploader
-        title={"upload document"}
-        onChangePreview={handlePreview}
-        onDeleteDocument={handleDelete}
-        link={image}
-        width={"100%"}
-      />
-
-    </>
+      <Button type={'submit'}>
+        submit
+      </Button>
+    </Stack>
   );
 }
 

@@ -10,6 +10,7 @@ import { ICustomDatePickerProps } from '../custom-date-picker/CustomDatePicker';
 import { ICustomNumericInputProps } from '../custom-input/CustomNumericInput';
 import { RadioProps } from '@mui/material/Radio';
 import {CheckboxListProps} from "./checkbox-list/CheckboxList";
+import {ICustomUploaderProps} from "../custom-uploader/CustomUploader.tsx";
 
 export interface IFormOption {
   value: string | number;
@@ -101,11 +102,20 @@ interface IMultiCheckboxForm extends IBaseForm {
   itemProps?: Partial<Omit<CheckboxListProps, "multiple" | "options" | "onChange" | "value">>;
 }
 
+interface IUploaderForm extends IBaseForm {
+  type?: "uploader",
+  multiple?: boolean;
+  onDelete?: (index: number) => void
+  props?: Partial<ICustomUploaderProps>
+  itemProps?: Partial<ICustomUploaderProps>
+}
+
 interface ITextFieldForm extends IBaseForm {
   type?: 'text' | 'email' | 'password' | 'phone' | 'number';
   props?: Partial<TextFieldProps>;
   itemProps?: Partial<TextFieldProps>;
 }
+
 
 export type typeTFormType =
   | 'car-licencePlate'
@@ -123,6 +133,7 @@ export type typeTFormType =
   | 'number'
   | 'radio'
   | 'currency'
+  | 'uploader'
   | 'multi-checkbox';
 
 export type TSchema =
@@ -137,45 +148,10 @@ export type TSchema =
   | IRadioForm
   | IMotorLicencePlateForm
   | ICarLicencePlateForm
+  | IUploaderForm
   | IMultiCheckboxForm;
 
 export type TFormSchema = TSchema[]
-
-// export interface IUseFormInput {
-//   name: string;
-//   label: React.ReactNode;
-//   type?:
-//     | 'car-licencePlate'
-//     | 'motorcycle-licencePlate'
-//     | 'text'
-//     | 'select'
-//     | 'multi-select'
-//     | 'auto-complete'
-//     | 'email'
-//     | 'password'
-//     | 'checkbox'
-//     | 'date-picker'
-//     | 'text-area'
-//     | 'phone'
-//     | 'number'
-//     | 'radio'
-//     | 'currency';
-//   options?: IFormOption[];
-//   rules?: RegisterOptions;
-//   defaultValue?: any;
-//   placeholder?: string;
-//   gridItemProp?: GridProps;
-//   sx?: SxProps;
-//   disabled?: boolean;
-//   readonly?: boolean;
-//   props?: any;
-//   labelProps?: Partial<TypographyProps<'any', {}>> | undefined;
-//   helperText?: string;
-//   withoutHelperText?: boolean;
-//   isLoading?: boolean;
-//   variant?: 'outlined' | 'filled' | 'standard';
-//   inputLabelMode?: TInputLabelMode;
-// }
 
 export interface IWeekDays {
   id: number;

@@ -15,11 +15,10 @@ import SvgFolderAdd from "../../assets/icons/FolderAdd.tsx";
 import DeleteModal from "../custom-modals/DeleteModal.tsx";
 import LinearBufferProgress from "../custom-progress/LinearBufferProgress.tsx";
 
-interface Props {
+export interface ICustomUploaderProps {
   link?: string;
-  title: string;
-  onChange?: (files: FileList) => void;
-  onChangePreview?: (preview: string[]) => void;
+  title?: string;
+  onChange?: (files: FileList, preview: string[]) => void;
   isLoading?: boolean;
   progress?: number;
   onDeleteDocument?: () => void;
@@ -27,16 +26,18 @@ interface Props {
   defaultIcon?: string;
 
   typoProps?: TypographyProps;
-  color?: string;
   stackProps?: StackProps;
+  imageProps?: React.ImgHTMLAttributes<HTMLImageElement>;
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  color?: string;
   width?: number | string;
   height?: number | string;
-  imageProps?: React.ImgHTMLAttributes<HTMLImageElement>;
+  multiple?: boolean
 }
 
-const CustomUploader: FC<Props> = ({
+const CustomUploader: FC<ICustomUploaderProps> = ({
   link,
-  title,
+  title = "",
   typoProps,
   color,
   onChange,
@@ -46,11 +47,12 @@ const CustomUploader: FC<Props> = ({
   accept,
   defaultIcon,
   stackProps,
-  onChangePreview,
+  inputProps,
 
   height,
   width,
   imageProps,
+  multiple
 }) => {
   const theme = useTheme();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
@@ -98,12 +100,8 @@ const CustomUploader: FC<Props> = ({
       objectUrlFiles.push(URL.createObjectURL(files[i]));
     }
 
-    if (onChangePreview) {
-      onChangePreview(objectUrlFiles);
-    }
-
     if (onChange && files instanceof FileList) {
-      onChange(files);
+      onChange(files, objectUrlFiles);
     }
   };
 
@@ -119,11 +117,13 @@ const CustomUploader: FC<Props> = ({
     >
       {!link && !isLoading && (
         <input
+          multiple={multiple}
           type={"file"}
           accept={accept || "image/jpeg, image/png, image/jpg"}
           id={link + title}
           style={{ display: "none" }}
           onChange={handleChange}
+          {...inputProps}
         />
       )}
 
