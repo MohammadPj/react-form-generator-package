@@ -10,7 +10,7 @@ import { ICustomDatePickerProps } from '../custom-date-picker/CustomDatePicker';
 import { ICustomNumericInputProps } from '../custom-input/CustomNumericInput';
 import { RadioProps } from '@mui/material/Radio';
 import {CheckboxListProps} from "./checkbox-list/CheckboxList";
-import {ICustomUploaderProps} from "../custom-uploader/CustomUploader.tsx";
+import {ICustomUploaderProps} from "../custom-uploader/CustomUploader";
 
 export interface IFormOption {
   value: string | number;

@@ -7,13 +7,13 @@ import Typography, { TypographyProps } from "@mui/material/Typography";
 import { StackProps, useTheme } from "@mui/material";
 
 // icons and images
-import SvgDocumentDownload from "../../assets/icons/DocumentDownload.tsx";
-import SvgTrash from "../../assets/icons/Trash.tsx";
-import SvgFolderAdd from "../../assets/icons/FolderAdd.tsx";
+import SvgDocumentDownload from "../../assets/icons/DocumentDownload";
+import SvgTrash from "../../assets/icons/Trash";
+import SvgFolderAdd from "../../assets/icons/FolderAdd";
 
 // components and utils
-import DeleteModal from "../custom-modals/DeleteModal.tsx";
-import LinearBufferProgress from "../custom-progress/LinearBufferProgress.tsx";
+import DeleteModal from "../custom-modals/DeleteModal";
+import LinearBufferProgress from "../custom-progress/LinearBufferProgress";
 
 export interface ICustomUploaderProps {
   link?: string;

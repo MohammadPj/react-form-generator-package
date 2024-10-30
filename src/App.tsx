@@ -12,8 +12,18 @@ function App() {
     {
       name: "test",
       label: "salam",
-      type: "uploader",
-      multiple: true
+    },
+    {
+      name: "test",
+      label: "salam",
+    },
+    {
+      name: "test",
+      label: "salam",
+    },
+    {
+      name: "test",
+      label: "salam",
     },
   ];
 
@@ -23,7 +33,7 @@ function App() {
 
   return (
     <Stack component={'form'} onSubmit={form.handleSubmit(handleSubmit)}>
-      <Form schema={schema} form={form} />
+      <Form schema={schema} form={form} gridItemProps={{xs: 12}} />
 
       <Button type={'submit'}>
         submit

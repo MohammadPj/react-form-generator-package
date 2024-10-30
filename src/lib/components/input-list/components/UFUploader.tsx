@@ -3,7 +3,7 @@ import { IUploaderForm } from "../type";
 import { Controller, UseFormReturn } from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
-import CustomUploader from "../../custom-uploader/CustomUploader.tsx";
+import CustomUploader from "../../custom-uploader/CustomUploader";
 import Box from "@mui/material/Box";
 
 type UFUploaderProps = IUploaderForm & {
@@ -53,7 +53,7 @@ const UFUploader: FC<UFUploaderProps> = ({
           sx={{ display: "flex", ...(disabled && { filter: "contrast(0.3)" }) }}
         >
           <Box display={"flex"} gap={2}>
-            {(multiple || !value) && (
+            {(multiple || !value?.files?.length) && (
               <CustomUploader
                 multiple={multiple}
                 {...props}

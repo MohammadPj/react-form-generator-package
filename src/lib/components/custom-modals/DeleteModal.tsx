@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-import SvgTrash from "../../assets/icons/Trash.tsx";
-import CustomModal from "./CustomModal.tsx";
+import SvgTrash from "../../assets/icons/Trash";
+import CustomModal from "./CustomModal";
 
 interface Props {
   children: React.ReactNode;

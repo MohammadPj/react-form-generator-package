@@ -29,7 +29,7 @@ import { UFAutoComplete } from '../index';
 import { UFRadio } from '../index';
 import { UFMultiCheckbox } from '../index';
 import { TextFieldProps } from '@mui/material/TextField';
-import UFUploader from "./components/UFUploader.tsx";
+import UFUploader from "./components/UFUploader";
 
 //---------------------------------------------------------------------------------------------------------
 
