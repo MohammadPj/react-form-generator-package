@@ -61,8 +61,8 @@ const Form: FC<FormProps> = ({
           item
           xs={4}
           width={'100%'}
+          height={'auto'}
           position={'relative'}
-          height={'100%'}
           {...gridItemProps}
           {...inputProp.gridItemProp}
         >
