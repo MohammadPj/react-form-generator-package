@@ -10,21 +10,13 @@ function App() {
 
   const schema: TFormSchema = [
     {
-      name: "test",
-      label: "salam",
-    },
-    {
-      name: "test",
-      label: "salam",
-    },
-    {
-      name: "test",
-      label: "salam",
-    },
-    {
-      name: "test",
-      label: "salam",
-    },
+      name: "date",
+      label: "date",
+      type: "date-picker",
+      props: {
+
+      }
+    }
   ];
 
   const handleSubmit = () => {

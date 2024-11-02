@@ -14,7 +14,7 @@ interface Props extends BaseTextFieldProps {
   readonly?: boolean;
   variant?: TextFieldVariants;
   inputLabelMode: TInputLabelMode;
-  withoutHelperText: boolean;
+  withoutHelperText?: boolean;
 }
 
 const CustomComponent: FC<Props> = ({

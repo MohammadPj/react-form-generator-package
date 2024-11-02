@@ -7,12 +7,12 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import { TInputLabelMode } from "../input-list/type";
 import "./color.css";
 
-interface ICustomDatePickerProps extends CalendarProps {
+export interface ICustomDatePickerProps extends CalendarProps {
   error: any;
   textFieldProps?: BaseTextFieldProps;
   inputLabelMode: TInputLabelMode;
   label: string;
-  withoutHelperText: boolean;
+  withoutHelperText?: boolean;
 }
 
 const CustomDatePicker: FC<ICustomDatePickerProps> = ({
