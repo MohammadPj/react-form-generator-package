@@ -5,7 +5,7 @@ import { BaseTextFieldProps } from "@mui/material/TextField/TextField";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { TInputLabelMode } from "../input-list/type";
-import "./color.css";
+// import "./color.css";
 
 export interface ICustomDatePickerProps extends CalendarProps {
   error: any;
