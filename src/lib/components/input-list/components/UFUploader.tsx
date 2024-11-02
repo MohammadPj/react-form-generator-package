@@ -24,11 +24,25 @@ const UFUploader: FC<UFUploaderProps> = ({
   helperText,
   onDelete,
 }) => {
-  const handleChange = (files: FileList, preview: string[]) => {
+  const handleChange = (addedFiles: FileList) => {
+
+    const files: File[] = form.getValues(name)?.files || []
+    const previews: string[] = form.getValues(name)?.preview || []
+
+    for (let i = 0; i < addedFiles.length; i++) {
+      const file = addedFiles[i];
+
+      if(!files || files?.findIndex(f => f.name === file.name) < 0) {
+        files?.push(file)
+        previews.push(URL.createObjectURL(file))
+      }
+    }
+
     form.setValue(name, {
       files: Array.from(files),
-      preview,
+      preview: previews,
     });
+
   };
 
   const handleDelete = (index: number) => {

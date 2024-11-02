@@ -7,7 +7,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import { TInputLabelMode } from "../input-list/type";
 import "./color.css";
 
-interface props extends CalendarProps {
+interface ICustomDatePickerProps extends CalendarProps {
   error: any;
   textFieldProps?: BaseTextFieldProps;
   inputLabelMode: TInputLabelMode;
@@ -15,7 +15,7 @@ interface props extends CalendarProps {
   withoutHelperText: boolean;
 }
 
-const CustomDatePicker: FC<props> = ({
+const CustomDatePicker: FC<ICustomDatePickerProps> = ({
   onChange,
   value,
   disabled,

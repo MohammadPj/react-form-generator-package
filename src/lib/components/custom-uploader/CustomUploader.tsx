@@ -62,26 +62,27 @@ const CustomUploader: FC<ICustomUploaderProps> = ({
     setIsOpenDeleteModal(true);
   };
 
-  const handleDownload = async (link: string, nameOfDownload: string) => {
-    const response = await fetch(link);
-
-    const blobImage = await response.blob();
-
-    const href = URL.createObjectURL(blobImage);
-
-    const anchorElement = document.createElement("a");
-    anchorElement.href = href;
-    anchorElement.download = nameOfDownload;
-
-    document.body.appendChild(anchorElement);
-    anchorElement.click();
-
-    document.body.removeChild(anchorElement);
-    window.URL.revokeObjectURL(href);
-  };
+  // const handleDownload = async (link: string, nameOfDownload: string) => {
+  //   const response = await fetch(link);
+  //
+  //   const blobImage = await response.blob();
+  //
+  //   const href = URL.createObjectURL(blobImage);
+  //
+  //   const anchorElement = document.createElement("a");
+  //   anchorElement.href = href;
+  //   anchorElement.download = nameOfDownload;
+  //
+  //   document.body.appendChild(anchorElement);
+  //   anchorElement.click();
+  //
+  //   document.body.removeChild(anchorElement);
+  //   window.URL.revokeObjectURL(href);
+  // };
 
   const handleDownloadImage = async () => {
-    await handleDownload(link!, `${title}`);
+    // await handleDownload(link!, `${title}`);
+    window.open(link)
   };
 
   const handleDelete = () => {
