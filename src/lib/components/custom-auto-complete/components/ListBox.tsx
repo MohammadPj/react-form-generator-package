@@ -4,7 +4,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import * as React from 'react';
 import {ListOnScrollProps, VariableSizeList} from 'react-window';
 import { ListRow } from './ListRow';
-import {debounce} from "lodash";
+import debounce from "../../../methods/debounce.ts";
 
 export const LISTBOX_PADDING = 8; // px
 
@@ -62,7 +62,7 @@ export const ListBox = React.forwardRef<
     }
   }
 
-  const debouncedReachEnd = debounce(handleReachEnd, 10)
+  const debouncedReachEnd = debounce(handleReachEnd, 100)
 
   const handleScroll = ({
     scrollDirection,

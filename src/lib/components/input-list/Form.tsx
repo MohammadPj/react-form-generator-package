@@ -1,7 +1,6 @@
 import React, { FC, isValidElement } from 'react';
 
 //@3rd Party
-import lodash from 'lodash';
 import { UseFormReturn } from 'react-hook-form';
 //------------------------------------------------------------------------
 
@@ -18,6 +17,7 @@ import { TypographyProps } from '@mui/material/Typography';
 import { TFormSchema, TInputLabelMode } from './type';
 import UseFormInput from './UseFormInput';
 import { TextFieldProps } from '@mui/material/TextField';
+import result from "../../methods/general.ts";
 
 //------------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ const Form: FC<FormProps> = ({
                 mb={2}
                 htmlFor={inputProp.name}
                 color={
-                  lodash.result(form?.formState?.errors, `${inputProp.name}`)
+                  result(form?.formState?.errors, `${inputProp.name}`)
                     ? 'error'
                     : 'text.16'
                 }
@@ -109,7 +109,7 @@ const Form: FC<FormProps> = ({
             {...inputProp}
             form={form}
             itemProps={itemProps}
-            error={lodash.result(form?.formState?.errors, `${inputProp.name}`)}
+            error={result(form?.formState?.errors, `${inputProp.name}`)}
             inputLabelMode={inputLabelMode}
             inputVariants={inputVariants}
             withoutHelperText={withoutHelperText}
