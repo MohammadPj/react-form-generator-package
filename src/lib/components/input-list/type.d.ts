@@ -48,7 +48,6 @@ interface ISelectForm extends IBaseForm {
   props?: TextFieldProps;
   itemProps?: TextFieldProps;
   options?: IFormOption[];
-  // need menuProps
 }
 
 interface IMultiSelectForm extends IBaseForm {
@@ -56,8 +55,6 @@ interface IMultiSelectForm extends IBaseForm {
   props?: TextFieldProps;
   itemProps?: TextFieldProps;
   options?: IFormOption[];
-  // need menuProps
-  // need stackProps
 }
 
 interface IAutoCompleteForm extends IBaseForm {
@@ -116,26 +113,6 @@ interface ITextFieldForm extends IBaseForm {
   itemProps?: Partial<TextFieldProps>;
 }
 
-
-export type typeTFormType =
-  | 'car-licencePlate'
-  | 'motorcycle-licencePlate'
-  | 'text'
-  | 'select'
-  | 'multi-select'
-  | 'auto-complete'
-  | 'email'
-  | 'password'
-  | 'checkbox'
-  | 'date-picker'
-  | 'text-area'
-  | 'phone'
-  | 'number'
-  | 'radio'
-  | 'currency'
-  | 'uploader'
-  | 'multi-checkbox';
-
 export type TSchema =
   | ITextFieldForm
   | ICurrencyForm
@@ -146,17 +123,27 @@ export type TSchema =
   | IMultiSelectForm
   | ISelectForm
   | IRadioForm
-  | IMotorLicencePlateForm
-  | ICarLicencePlateForm
   | IUploaderForm
   | IMultiCheckboxForm;
 
 export type TFormSchema = TSchema[]
 
-export interface IWeekDays {
-  id: number;
-  dayName: string;
-  dayNameEn: string;
-  isActive: boolean;
+export type TFormTheme = {
+  text: TextFieldProps;
+  email: TextFieldProps;
+  password: TextFieldProps;
+  phone: TextFieldProps;
+  uploader: Partial<ICustomUploaderProps>;
+  'multi-checkbox':  Partial<Omit<CheckboxListProps, "multiple" | "options" | "onChange" | "value">>;;
+  currency: Partial<ICustomNumericInputProps>;;
+  'text-area': Partial<TextFieldProps>;;
+  'date-picker': Partial<ICustomDatePickerProps>;
+  checkbox: Partial<ICustomCheckboxProps>;;
+  'auto-complete': Partial<CustomAutocompleteProps>;
+  'multi-select': TextFieldProps;
+  'select': TextFieldProps;
+  radio: RadioProps;
+  number: TextFieldProps;
 }
+
 export type TInputLabelMode = 'static' | 'relative';

@@ -1,12 +1,13 @@
-import React, { FC, useEffect, useState } from "react";
-import TextField, { StandardTextFieldProps } from "@mui/material/TextField";
+import React, {FC, ReactNode, useEffect, useState} from "react";
+import TextField, { TextFieldProps} from "@mui/material/TextField";
 
-interface Props extends Omit<StandardTextFieldProps, "onChange" | "value"> {
+export interface ICustomNumericInputProps extends Omit<TextFieldProps, "onChange" | "value"> {
   onChange?: (value: string | number) => void;
   value?: string | number;
+  currencyIcon?: ReactNode
 }
 
-const CustomNumericInput: FC<Props> = ({ onChange, value, ...props }) => {
+const CustomNumericInput: FC<ICustomNumericInputProps> = ({ onChange, value, ...props }) => {
   useEffect(() => {
     setCustomValue(formatAsCurrency(value));
   }, [value]);
@@ -45,10 +46,6 @@ const CustomNumericInput: FC<Props> = ({ onChange, value, ...props }) => {
 
   return (
     <>
-      <style>{`.numeric-input input{
-                  direction:ltr !important;
-                }
-`}</style>
       <TextField
         fullWidth
         className={"numeric-input"}

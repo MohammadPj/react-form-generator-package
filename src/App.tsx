@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import "./index.css";
-import { TFormSchema } from "./lib/components/input-list/type";
+import {TFormTheme, TSchema} from "./lib/components/input-list/type";
 import { Form } from "./lib";
 import { Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
+import {FormProvider} from "./lib/context/formContext.tsx";
 
 function App() {
   const form = useForm();
@@ -12,7 +13,7 @@ function App() {
     value: item,
   }));
 
-  const schema: TFormSchema = [
+  const schema: TSchema[] = [
     {
       name: "date",
       label: "date",
@@ -31,12 +32,18 @@ function App() {
     console.log("form values", form.getValues());
   };
 
+  const theme: TFormTheme = {
+    radio: {}
+  }
+
   return (
+    <FormProvider theme={theme} customInputs={[]} >
     <Stack component={"form"} onSubmit={form.handleSubmit(handleSubmit)}>
       <Form schema={schema} form={form} gridItemProps={{ xs: 12 }} />
 
       <Button type={"submit"}>submit</Button>
     </Stack>
+    </FormProvider>
   );
 }
 
