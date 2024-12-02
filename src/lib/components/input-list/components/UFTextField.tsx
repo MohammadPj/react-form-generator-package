@@ -2,6 +2,8 @@ import React, { ChangeEvent, FC } from "react";
 import { Controller, UseFormReturn } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import {ITextFieldForm} from "../type";
+import {useFormContext} from "../../../context/FormContext.tsx";
+import {deepMerge} from "../../../methods/general.ts";
 
 type Props = ITextFieldForm & {
   form: UseFormReturn<any>;
@@ -20,10 +22,9 @@ export const checkIfNumber = (value: string) => {
 const UFTextField: FC<Props> = ({
   form,
   name,
-  type,
+  type='text',
   defaultValue,
   label,
-  sx,
   rules,
   readonly,
   disabled,
@@ -36,6 +37,11 @@ const UFTextField: FC<Props> = ({
   withoutHelperText,
   inputLabelMode,
 }) => {
+  const {theme} = useFormContext()
+
+  const themeProp = theme?.[type]
+  const textFieldMergedProps = deepMerge(themeProp, itemProps, props)
+
   const handleKeyDown = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     onChange: any,
@@ -73,17 +79,13 @@ const UFTextField: FC<Props> = ({
           error={!!error}
           placeholder={placeholder}
           onChange={(e) => handleKeyDown(e, field.onChange)}
-          sx={{
-            ...sx,
-          }}
           helperText={
             withoutHelperText ? undefined : error?.message ?? helperText ?? " "
           }
           aria-readonly={readonly}
           disabled={disabled}
           inputProps={{ readOnly: readonly }}
-          {...itemProps}
-          {...props}
+          {...textFieldMergedProps}
         />
       )}
     />

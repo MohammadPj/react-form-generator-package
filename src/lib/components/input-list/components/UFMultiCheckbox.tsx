@@ -1,9 +1,11 @@
-import React, { FC } from 'react';
-import FormControl from '@mui/material/FormControl';
-import Typography from '@mui/material/Typography';
-import { Controller, UseFormReturn } from 'react-hook-form';
-import { IMultiCheckboxForm } from '../type';
-import CheckboxList from '../checkbox-list/CheckboxList';
+import React, { FC } from "react";
+import FormControl from "@mui/material/FormControl";
+import Typography from "@mui/material/Typography";
+import { Controller, UseFormReturn } from "react-hook-form";
+import { IMultiCheckboxForm } from "../type";
+import CheckboxList from "../checkbox-list/CheckboxList";
+import { useFormContext } from "../../../context/FormContext.tsx";
+import { deepMerge } from "../../../methods/general.ts";
 
 type UFMultiCheckboxProps = IMultiCheckboxForm & {
   form: UseFormReturn<any>;
@@ -21,9 +23,15 @@ const UFMultiCheckbox: FC<UFMultiCheckboxProps> = ({
   options,
   multiple,
   props,
-  itemProps
+  itemProps,
 }) => {
-  console.log('props', props)
+  const { theme } = useFormContext()
+
+  const multiCheckboxMergedProps = deepMerge(
+    theme?.multiCheckbox?.multiCheckboxProps,
+    itemProps,
+    props,
+  );
 
   return (
     <Controller
@@ -32,25 +40,24 @@ const UFMultiCheckbox: FC<UFMultiCheckboxProps> = ({
       rules={{ ...rules }}
       render={({ field }) => (
         <FormControl
-          sx={{ display: 'flex', ...(disabled && { filter: 'contrast(0.3)' }) }}
+          sx={{ display: "flex", ...(disabled && { filter: "contrast(0.3)" }) }}
         >
           <CheckboxList
             multiple={multiple}
             options={options}
-            {...itemProps}
-            {...props}
             {...field}
+            {...multiCheckboxMergedProps}
           />
 
           {!withoutHelperText && (
             <Typography
               sx={{
                 height: 23,
-                width: 'max-content',
-                color: error ? 'error.4' : 'text.primary',
+                width: "max-content",
+                color: error ? "error.4" : "text.primary",
               }}
             >
-              {error?.message ?? helperText ?? ' '}
+              {error?.message ?? helperText ?? " "}
             </Typography>
           )}
         </FormControl>

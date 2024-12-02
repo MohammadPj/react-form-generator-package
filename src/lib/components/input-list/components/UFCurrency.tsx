@@ -4,6 +4,8 @@ import {ICurrencyForm} from "../type";
 import CustomNumericInput from "../../custom-input/CustomNumericInput";
 import { useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import {useFormContext} from "../../../context/FormContext.tsx";
+import {deepMerge} from "../../../methods/general.ts";
 
 type Props = ICurrencyForm & {
   form: UseFormReturn<any>;
@@ -14,7 +16,6 @@ const UfCurrency: FC<Props> = ({
   form,
   name,
   defaultValue,
-  sx,
   rules,
   readonly,
   disabled,
@@ -25,12 +26,14 @@ const UfCurrency: FC<Props> = ({
   helperText,
   withoutHelperText,
   variant,
-  // currencyIcon = <SvgDollarCircle primarycolor={"inherit"} />,
   currencyIcon = <Typography>تومان</Typography>,
   inputLabelMode,
   label,
 }) => {
+  const {theme} = useFormContext()
   const { direction } = useTheme();
+
+  const currencyMergedProps = deepMerge(theme?.currency?.currencyProps, itemProps, props)
 
   return (
     <Controller
@@ -55,26 +58,31 @@ const UfCurrency: FC<Props> = ({
           variant={variant}
           {...(inputLabelMode === "static" && { hiddenLabel: true })}
           {...(inputLabelMode === "relative" && { label: label })}
+          helperText={
+            withoutHelperText ? undefined : error?.message ?? helperText ?? " "
+          }
+          aria-readonly={readonly}
+          inputProps={{ readOnly: readonly }}
 
+          {...currencyMergedProps}
           sx={{
-            ...sx,
             ".MuiInputBase-root": {
               px: (theme) => theme.spacing(2),
             },
 
             ...(direction === "rtl"
               ? {
-                  ".MuiFilledInput-input": {
-                    py: "16px !important",
-                    textAlign: "right !important",
-                    pr: "3px !important",
-                  },
-                }
+                ".MuiFilledInput-input": {
+                  py: "16px !important",
+                  textAlign: "right !important",
+                  pr: "3px !important",
+                },
+              }
               : {
-                  ".MuiFilledInput-input": {
-                    pl: "3px !important",
-                  },
-                }),
+                ".MuiFilledInput-input": {
+                  pl: "3px !important",
+                },
+              }),
             backgroundColor: readonly ? "background.paper" : "unset",
             borderRadius: "8px",
             pointerEvents: readonly ? "none" : "unset",
@@ -82,18 +90,13 @@ const UfCurrency: FC<Props> = ({
               backgroundColor: readonly ? "background.paper" : "unset",
               color: readonly ? "text.secondary" : "unset",
             },
+
+            ...currencyMergedProps.sx
           }}
-          helperText={
-            withoutHelperText ? undefined : error?.message ?? helperText ?? " "
-          }
-          aria-readonly={readonly}
-          inputProps={{ readOnly: readonly }}
-          {...itemProps}
-          {...props}
           InputProps={{
             sx:{gap:2},
             endAdornment: props?.currencyIcon ?? currencyIcon,
-            ...itemProps?.InputProps, ...props?.InputProps
+            ...currencyMergedProps.InputProps
           }}
         />
       )}

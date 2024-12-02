@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 
 //@3rd Party
 import { Controller, UseFormReturn } from "react-hook-form";
-import {IMultiSelectForm} from "../type";
+import { IMultiSelectForm } from "../type";
 //----------------------------------------------------------------------------------
 
 //@Mui
@@ -13,19 +13,20 @@ import ListItemText from "@mui/material/ListItemText";
 import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import { useFormContext } from "../../../context/FormContext.tsx";
+import { deepMerge } from "../../../methods/general.ts";
 
 //----------------------------------------------------------------------------------
 
 type Props = IMultiSelectForm & {
   form: UseFormReturn<any>;
   error: any;
-}
+};
 
 const UFMultiSelect: FC<Props> = ({
   form,
   error,
   placeholder,
-  sx,
   rules,
   disabled,
   name,
@@ -40,9 +41,12 @@ const UFMultiSelect: FC<Props> = ({
   inputLabelMode,
   label,
 }) => {
+  const { theme } = useFormContext()
+
   const [optionValues, setOptionValues] = useState<any[]>([]);
   const selectedItems = (value: string) =>
     options?.find((option) => option?.value === value)?.label;
+
   return (
     <Controller
       control={form?.control}
@@ -53,12 +57,17 @@ const UFMultiSelect: FC<Props> = ({
         <>
           <FormControl fullWidth>
             {placeholder && (
-                <InputLabel id='simple-select-label' sx={{
-                    '&.MuiInputLabel-root[data-shrink=true]': {opacity: '0%'},
-                    '&.MuiInputLabel-root[data-shrink=false]': {opacity: '100%'}
-                }}>
-                    {placeholder}
-                </InputLabel>
+              <InputLabel
+                id="simple-select-label"
+                sx={{
+                  "&.MuiInputLabel-root[data-shrink=true]": { opacity: "0%" },
+                  "&.MuiInputLabel-root[data-shrink=false]": {
+                    opacity: "100%",
+                  },
+                }}
+              >
+                {placeholder}
+              </InputLabel>
             )}
             <TextField
               select
@@ -75,7 +84,7 @@ const UFMultiSelect: FC<Props> = ({
               SelectProps={{
                 multiple: true,
                 value: optionValues,
-                renderValue: (selected:any)=>(
+                renderValue: (selected: any) => (
                   <Stack
                     gap={1}
                     height={"100%"}
@@ -94,26 +103,31 @@ const UFMultiSelect: FC<Props> = ({
                         .join(",")}
                     </Typography>
                   </Stack>
-                )
+                ),
               }}
               inputProps={{ readOnly: readonly }}
               helperText={
-                withoutHelperText ? undefined : error?.message ?? helperText ?? " "
+                withoutHelperText
+                  ? undefined
+                  : error?.message ?? helperText ?? " "
               }
               sx={{
                 ".MuiInputBase-root": {
                   paddingRight: (theme) => theme.spacing(2),
                 },
-                ...sx,
-                pointerEvents: readonly ? "none" : "unset",
-                backgroundColor: readonly ? "background.paper" : "unset",
-                "& .MuiOutlinedInput-input.MuiSelect-select": {
-                  backgroundColor: readonly ? "background.paper" : "unset",
-                  color: readonly ? "text.5" : "unset",
-                },
+                // ...sx,
+                // pointerEvents: readonly ? "none" : "unset",
+                // backgroundColor: readonly ? "background.paper" : "unset",
+                // "& .MuiOutlinedInput-input.MuiSelect-select": {
+                //   backgroundColor: readonly ? "background.paper" : "unset",
+                //   color: readonly ? "text.5" : "unset",
+                // },
               }}
-              {...props}
-              {...itemProps}
+              {...deepMerge(
+                theme?.multiSelect?.multiSelectProps,
+                itemProps,
+                props,
+              )}
             >
               {options?.map(({ label, value }) => {
                 return (

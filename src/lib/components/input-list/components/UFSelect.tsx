@@ -1,20 +1,20 @@
 import React, { FC } from "react";
 import FormControl from "@mui/material/FormControl";
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import { Controller, UseFormReturn } from "react-hook-form";
-import {ISelectForm} from "../type";
+import { ISelectForm } from "../type";
+import { useFormContext } from "../../../context/FormContext.tsx";
+import {deepMerge} from "../../../methods/general.ts";
 
-
-type Props = ISelectForm & {
+type TSelectProps = ISelectForm & {
   form: UseFormReturn<any>;
   error: any;
-}
+};
 
-const UFSelect: FC<Props> = ({
+const UFSelect: FC<TSelectProps> = ({
   form,
   error,
-  sx,
   rules,
   disabled,
   name,
@@ -29,6 +29,8 @@ const UFSelect: FC<Props> = ({
   inputLabelMode,
   label,
 }) => {
+  const { theme } = useFormContext() || {}
+
   return (
     <Controller
       control={form?.control}
@@ -38,23 +40,6 @@ const UFSelect: FC<Props> = ({
       render={({ field }) => (
         <>
           <FormControl fullWidth variant={variant}>
-            {/*<InputLabel*/}
-            {/*  id="simple-select-label"*/}
-            {/*  error={!!error}*/}
-            {/*  sx={{*/}
-            {/*    //Handling Placeholder*/}
-            {/*    ...(inputLabelMode === "static" && {*/}
-            {/*      "&.MuiInputLabel-root[data-shrink=true]": {*/}
-            {/*        opacity: "0%",*/}
-            {/*      },*/}
-            {/*      "&.MuiInputLabel-root[data-shrink=false]": {*/}
-            {/*        opacity: "100%",*/}
-            {/*      },*/}
-            {/*    }),*/}
-            {/*  }}*/}
-            {/*>*/}
-            {/*  {inputLabelMode === "static" ? placeholder : label}*/}
-            {/*</InputLabel>*/}
             <TextField
               select
               {...field}
@@ -68,18 +53,18 @@ const UFSelect: FC<Props> = ({
               defaultValue={defaultValue}
               variant={variant}
               helperText={
-                withoutHelperText ? undefined : error?.message ?? helperText ?? " "
+                withoutHelperText
+                  ? undefined
+                  : error?.message ?? helperText ?? " "
               }
               InputProps={{readOnly: readonly
               }}
               sx={{
-                ".MuiInputBase-root":{
-                paddingRight:(theme)=>theme.spacing(2),
+                ".MuiInputBase-root": {
+                  paddingRight: (theme) => theme.spacing(2),
                 },
-                ...sx,
               }}
-              {...itemProps}
-              {...props}
+              {...deepMerge(theme?.select?.selectProps, itemProps, props)}
             >
               {options?.map((option) => (
                 <MenuItem

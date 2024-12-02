@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import {IAutoCompleteForm, IFormOption} from '../type';
 import CustomAutoComplete from "../../custom-auto-complete/CustomAutoComplete";
+import {deepMerge} from "../../../methods/general.ts";
+import {useFormContext} from "../../../context/FormContext.tsx";
 
 type Props = IAutoCompleteForm & {
   form: UseFormReturn<any>;
@@ -13,7 +15,6 @@ const UFAutoComplete: FC<Props> = ({
   label,
   error,
   placeholder,
-  sx,
   rules,
   disabled,
   name,
@@ -28,6 +29,8 @@ const UFAutoComplete: FC<Props> = ({
   itemProps,
   onReachEnd
 }) => {
+
+  const {theme} = useFormContext()
 
   // Convert defaultValue if it's an array of strings
   const convertDefaultValue = (defaultValue: any,options?:IFormOption[]) => {
@@ -66,8 +69,7 @@ const UFAutoComplete: FC<Props> = ({
           options={options || []}
           selectedOptions={field.value}
           value={convertDefaultValue(field?.value,options) as any}
-          // defaultValue={convertDefaultValue(field?.value,options)}
-          sx={{ width: '100%', ...sx }}
+          sx={{ width: '100%' }}
           inputMaxHeight={'120px'}
           limitTags={2}
           validation={{ isInvalid: !!error, message: error?.message }}
@@ -80,16 +82,6 @@ const UFAutoComplete: FC<Props> = ({
             return option?.value === value?.value;
           }}
           onReachEnd={onReachEnd}
-          // renderOption={(
-          //   props: HTMLAttributes<HTMLLIElement>,
-          //   option: any,
-          //   { selected }
-          // ) => (
-          //   <li style={{ direction: "rtl" }} {...props}>
-          //     <Checkbox sx={{ mr: 2 }} checked={selected} />
-          //     {option.label}
-          //   </li>
-          // )}
           onChange={(_: any, newValue: any) => {
 
             const isMultiple = Array.isArray(newValue);
@@ -103,8 +95,7 @@ const UFAutoComplete: FC<Props> = ({
               field.onChange(newValue ? newValue.value : "");
             }
           }}
-          {...props}
-          {...itemProps}
+          {...deepMerge(theme?.autoComplete?.autoCompleteProps, itemProps, props)}
         />
       )}
     />

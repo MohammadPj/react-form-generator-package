@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import {ICheckboxForm} from "../type";
+import { ICheckboxForm } from "../type";
 import { CheckboxProps } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
@@ -7,6 +7,8 @@ import { Controller, UseFormReturn } from "react-hook-form";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { SwitchBaseProps } from "@mui/material/internal/SwitchBase";
 import Typography, { TypographyProps } from "@mui/material/Typography";
+import { useFormContext } from "../../../context/FormContext.tsx";
+import { deepMerge } from "../../../methods/general.ts";
 
 export interface ICustomCheckboxProps {
   inputProps: SwitchBaseProps["inputProps"];
@@ -17,20 +19,23 @@ export interface ICustomCheckboxProps {
 type Props = ICheckboxForm & {
   form: UseFormReturn<any>;
   error: any;
-}
+};
 
 const UFCheckbox: FC<Props> = ({
   form,
   name,
   label,
   rules,
-  disabled,
-  sx,
   error,
   helperText,
   withoutHelperText,
   props,
+  disabled,
+  itemProps,
+  formControlLabelProps,
 }) => {
+  const { theme } = useFormContext()
+
   return (
     <Controller
       control={form?.control}
@@ -41,7 +46,6 @@ const UFCheckbox: FC<Props> = ({
           sx={{ display: "flex", ...(disabled && { filter: "contrast(0.3)" }) }}
         >
           <FormControlLabel
-            sx={{ ...sx }}
             slotProps={{
               typography: {
                 ...props?.slotProps?.typography,
@@ -54,11 +58,14 @@ const UFCheckbox: FC<Props> = ({
                 onChange={onChange}
                 disabled={disabled}
                 name={name}
-                inputProps={props?.inputProps}
-                {...props?.checkBoxProps}
+                {...deepMerge(theme?.checkbox?.checkboxProps, itemProps, props)}
               />
             }
             label={label}
+            {...deepMerge(
+              theme?.checkbox?.formControlLabelProps,
+              formControlLabelProps,
+            )}
           />
           {!withoutHelperText && (
             <Typography

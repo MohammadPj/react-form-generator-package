@@ -1,5 +1,4 @@
 import { GridProps } from '@mui/material/Grid';
-import { SxProps } from '@mui/material';
 import React, { ReactNode } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 import { TypographyProps } from '@mui/material/Typography';
@@ -11,6 +10,8 @@ import { RadioProps } from '@mui/material/Radio';
 import {CheckboxListProps} from "./checkbox-list/CheckboxList";
 import {ICustomUploaderProps} from "../custom-uploader/CustomUploader";
 import {ICustomDatePickerProps} from "../custom-date-picker/CustomDatePicker.tsx";
+import {RadioGroupProps} from "@mui/material";
+import {FormControlLabelProps} from "@mui/material/FormControlLabel";
 
 export interface IFormOption {
   value: string | number;
@@ -26,19 +27,20 @@ interface IBaseForm {
   defaultValue?: any;
   placeholder?: string;
   gridItemProp?: GridProps;
-  sx?: SxProps<any>;
-  disabled?: boolean;
-  readonly?: boolean;
-  labelProps?: Partial<TypographyProps<'any', {}>> | undefined;
+  labelProps?: Partial<TypographyProps<'any'>> | undefined;
   helperText?: string;
   withoutHelperText?: boolean;
   variant?: 'outlined' | 'filled' | 'standard';
   inputLabelMode?: TInputLabelMode;
+  disabled?: boolean
+  readonly?: boolean
 }
 
 interface IRadioForm extends IBaseForm {
   type?: 'radio';
-  props?: RadioProps;
+  radioProps?: RadioProps;
+  radioGroupProps?: Partial<RadioGroupProps>
+  formControlLabelProps?: Partial<FormControlLabelProps>
   options?: IFormOption[];
   itemProps?: RadioProps;
 }
@@ -52,8 +54,8 @@ interface ISelectForm extends IBaseForm {
 
 interface IMultiSelectForm extends IBaseForm {
   type?: 'multi-select';
-  props?: TextFieldProps;
-  itemProps?: TextFieldProps;
+  props?: Partial<TextFieldProps>;
+  itemProps?: Partial<TextFieldProps>;
   options?: IFormOption[];
 }
 
@@ -69,6 +71,7 @@ interface IAutoCompleteForm extends IBaseForm {
 interface ICheckboxForm extends IBaseForm {
   type?: 'checkbox';
   props?: Partial<ICustomCheckboxProps>;
+  formControlLabelProps?: Partial<FormControlLabelProps>
   itemProps?: Partial<ICustomCheckboxProps>;
 }
 
@@ -129,21 +132,44 @@ export type TSchema =
 export type TFormSchema = TSchema[]
 
 export type TFormTheme = {
-  text: TextFieldProps;
-  email: TextFieldProps;
-  password: TextFieldProps;
-  phone: TextFieldProps;
-  uploader: Partial<ICustomUploaderProps>;
-  'multi-checkbox':  Partial<Omit<CheckboxListProps, "multiple" | "options" | "onChange" | "value">>;;
-  currency: Partial<ICustomNumericInputProps>;;
-  'text-area': Partial<TextFieldProps>;;
-  'date-picker': Partial<ICustomDatePickerProps>;
-  checkbox: Partial<ICustomCheckboxProps>;;
-  'auto-complete': Partial<CustomAutocompleteProps>;
-  'multi-select': TextFieldProps;
-  'select': TextFieldProps;
-  radio: RadioProps;
-  number: TextFieldProps;
+  text?: Partial<TextFieldProps>;
+  email?: Partial<TextFieldProps>;
+  password?:Partial<TextFieldProps>;
+  phone?: Partial<TextFieldProps>;
+  number?: Partial<TextFieldProps>;
+  uploader?: {
+    uploaderProps?: Partial<ICustomUploaderProps>;
+  }
+  multiCheckbox?:  {
+    multiCheckboxProps?: Partial<Omit<CheckboxListProps, "multiple" | "options" | "onChange" | "value">>;
+  }
+  currency?: {
+    currencyProps?: Partial<ICustomNumericInputProps>;
+  }
+  textArea?: {
+    textAreaProps?: Partial<TextFieldProps>;
+  }
+  datePicker?: {
+    datePickerProps?: Partial<ICustomDatePickerProps>;
+  }
+  checkbox?: {
+    checkboxProps?: Partial<ICustomCheckboxProps>;
+    formControlLabelProps?: Partial<FormControlLabelProps>
+  }
+  autoComplete?:{
+    autoCompleteProps?: Partial<CustomAutocompleteProps>;
+  }
+  multiSelect?: {
+    multiSelectProps?: Partial<TextFieldProps>;
+  }
+  'select'?: {
+    selectProps: Partial<TextFieldProps>;
+  }
+  radio?: {
+    radioProps?: Partial<RadioProps>;
+    radioGroupProps?: Partial<RadioGroupProps>
+    formControlLabelProps?: Partial<FormControlLabelProps>
+  }
 }
 
 export type TInputLabelMode = 'static' | 'relative';

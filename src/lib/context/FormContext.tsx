@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode, FC } from "react";
+import React, {createContext, FC, ReactNode, useContext} from "react";
 import {TFormTheme} from "../components/input-list/type";
 
 export interface ICustomInputs {}
@@ -8,7 +8,7 @@ interface InputContextType {
   theme?: TFormTheme;
 }
 
-interface IFormProvider {
+export interface IFormProvider {
   children: ReactNode;
   customInputs?: ICustomInputs[];
   theme?: TFormTheme;
@@ -16,7 +16,7 @@ interface IFormProvider {
 
 const FormContext = createContext<InputContextType | undefined>(undefined);
 
-export const FormProvider: FC<IFormProvider> = ({
+const FormProvider: FC<IFormProvider> = ({
   children,
   customInputs,
   theme,
@@ -28,10 +28,6 @@ export const FormProvider: FC<IFormProvider> = ({
   );
 };
 
-export const useFormContext = () => {
-  const context = useContext(FormContext);
-  if (!context) {
-    throw new Error("useInputContext must be used within an InputProvider");
-  }
-  return context;
-};
+export const useFormContext = () => useContext(FormContext) || {};
+
+export default FormProvider

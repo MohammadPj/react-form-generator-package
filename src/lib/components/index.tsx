@@ -69,3 +69,9 @@ export const CheckboxList = withErrorBoundary(
     fallback: <LoadingComponent />,
   }),
 );
+
+export const FormProvider = withErrorBoundary(
+  loadable(() => import('../context/FormContext'), {
+    fallback: <LoadingComponent />,
+  }),
+);

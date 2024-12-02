@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import {IDatePickerForm} from '../type';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import CustomDatePicker from "../../custom-date-picker/CustomDatePicker";
+import {useFormContext} from "../../../context/FormContext.tsx";
+import {deepMerge} from "../../../methods/general.ts";
 
 type Props = IDatePickerForm & {
   form: UseFormReturn<any>;
@@ -16,14 +18,15 @@ const UFDatePicker: FC<Props> = ({
   name,
   label,
   error,
-  readonly,
   withoutHelperText,
   variant,
   inputLabelMode = 'static',
   props,
-  sx,
   itemProps,
+  readonly
 }) => {
+  const {theme} = useFormContext()
+
   return (
     //ToDo date picker issue on grid should be resolved
     <Controller
@@ -39,7 +42,7 @@ const UFDatePicker: FC<Props> = ({
               id: name,
               variant: variant,
               ...itemProps,
-              sx: { width: '100%', ...sx },
+              sx: { width: '100%' },
             }}
             error={error}
             disabled={disabled}
@@ -48,7 +51,7 @@ const UFDatePicker: FC<Props> = ({
             inputLabelMode={inputLabelMode}
             withoutHelperText={withoutHelperText}
             label={label as string}
-            {...props}
+            {...deepMerge(theme?.datePicker?.datePickerProps ,props)}
           />
         </>
       )}

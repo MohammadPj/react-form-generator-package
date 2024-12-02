@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { ITextAreaForm } from '../type';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
+import {useFormContext} from "../../../context/FormContext.tsx";
+import {deepMerge} from "../../../methods/general.ts";
 
 type Props = ITextAreaForm & {
   form: UseFormReturn<any>;
@@ -13,7 +15,6 @@ const UFTextArea: FC<Props> = ({
   name,
   type,
   defaultValue,
-  sx,
   rules,
   readonly,
   disabled,
@@ -26,6 +27,8 @@ const UFTextArea: FC<Props> = ({
   inputLabelMode,
   label,
 }) => {
+  const {theme} = useFormContext() || {}
+
   return (
     <Controller
       control={form?.control}
@@ -50,12 +53,11 @@ const UFTextArea: FC<Props> = ({
           helperText={
             withoutHelperText ? undefined : error?.message ?? helperText ?? ' '
           }
-          sx={sx}
           aria-readonly={readonly}
           disabled={disabled}
           variant={variant}
           inputProps={{ readOnly: readonly }}
-          {...props}
+          {...deepMerge(theme?.textArea?.textAreaProps, props)}
         />
       )}
     />

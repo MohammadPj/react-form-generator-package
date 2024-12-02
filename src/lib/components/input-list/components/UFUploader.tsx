@@ -5,6 +5,8 @@ import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
 import CustomUploader from "../../custom-uploader/CustomUploader";
 import Box from "@mui/material/Box";
+import {useFormContext} from "../../../context/FormContext.tsx";
+import {deepMerge} from "../../../methods/general.ts";
 
 type UFUploaderProps = IUploaderForm & {
   form: UseFormReturn<any>;
@@ -24,6 +26,9 @@ const UFUploader: FC<UFUploaderProps> = ({
   helperText,
   onDelete,
 }) => {
+  const {theme} = useFormContext()
+  const uploaderMergedProps = deepMerge(theme?.uploader?.uploaderProps, itemProps, props)
+
   const handleChange = (addedFiles: FileList) => {
 
     const files: File[] = form.getValues(name)?.files || []
@@ -70,8 +75,7 @@ const UFUploader: FC<UFUploaderProps> = ({
             {(multiple || !value?.files?.length) && (
               <CustomUploader
                 multiple={multiple}
-                {...props}
-                {...itemProps}
+                {...uploaderMergedProps}
                 inputProps={{ name, disabled, onBlur }}
                 onChange={handleChange}
               />
@@ -80,8 +84,7 @@ const UFUploader: FC<UFUploaderProps> = ({
             {value?.preview?.map((preview: string, i: number) => (
               <CustomUploader
                 multiple={multiple}
-                {...props}
-                {...itemProps}
+                {...uploaderMergedProps}
                 link={preview}
                 inputProps={{ name, disabled, onBlur }}
                 onChange={handleChange}
