@@ -1,33 +1,33 @@
 # React Hook Form Generator
 
-یک پکیج قدرتمند و انعطاف‌پذیر برای ساخت فرم‌های React با استفاده از `react-hook-form` و `Material-UI`. این پکیج به شما امکان می‌دهد فرم‌های پیچیده را به راحتی و با کد کمتری پیاده‌سازی کنید.
+A powerful and flexible package for building React forms using `react-hook-form` and `Material-UI`. This package allows you to implement complex forms easily with less code.
 
-## 📋 فهرست مطالب
+## 📋 Table of Contents
 
-- [نصب](#نصب)
-- [شروع سریع](#شروع-سریع)
-- [ویژگی‌ها](#ویژگی‌ها)
-- [انواع Input](#انواع-input)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Input Types](#input-types)
 - [API Reference](#api-reference)
 - [Theme Customization](#theme-customization)
 - [Validation](#validation)
-- [مثال‌های پیشرفته](#مثال‌های-پیشرفته)
+- [Advanced Examples](#advanced-examples)
 
-## 📦 نصب
+## 📦 Installation
 
 ```bash
 npm install react-hook-form-gen
 ```
 
-یا
+or
 
 ```bash
 yarn add react-hook-form-gen
 ```
 
-### وابستگی‌های مورد نیاز
+### Required Dependencies
 
-این پکیج به کتابخانه‌های زیر نیاز دارد:
+This package requires the following libraries:
 
 - `react` (^18.3.1)
 - `react-dom` (^18.3.1)
@@ -36,7 +36,7 @@ yarn add react-hook-form-gen
 - `@emotion/react` (^11.11.4)
 - `@emotion/styled` (^11.11.5)
 
-## 🚀 شروع سریع
+## 🚀 Quick Start
 
 ```tsx
 import { useForm } from "react-hook-form";
@@ -50,21 +50,21 @@ function MyForm() {
   const schema: TSchema[] = [
     {
       name: "firstName",
-      label: "نام",
+      label: "First Name",
       type: "text",
       rules: {
-        required: "نام الزامی است",
+        required: "First name is required",
       },
     },
     {
       name: "email",
-      label: "ایمیل",
+      label: "Email",
       type: "email",
       rules: {
-        required: "ایمیل الزامی است",
+        required: "Email is required",
         pattern: {
           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-          message: "ایمیل معتبر نیست",
+          message: "Invalid email address",
         },
       },
     },
@@ -78,40 +78,40 @@ function MyForm() {
     <FormProvider>
       <Stack component="form" onSubmit={form.handleSubmit(handleSubmit)}>
         <Form schema={schema} form={form} />
-        <Button type="submit">ارسال</Button>
+        <Button type="submit">Submit</Button>
       </Stack>
     </FormProvider>
   );
 }
 ```
 
-## ✨ ویژگی‌ها
+## ✨ Features
 
-- ✅ **پشتیبانی از انواع Input**: text, email, password, number, textarea, select, multi-select, auto-complete, checkbox, radio, date-picker, currency, uploader
-- ✅ **Validation یکپارچه**: استفاده از قوانین `react-hook-form`
-- ✅ **Theme Customization**: امکان سفارشی‌سازی استایل تمام کامپوننت‌ها
-- ✅ **Grid Layout**: استفاده از Material-UI Grid برای چیدمان
-- ✅ **TypeScript**: پشتیبانی کامل از TypeScript
-- ✅ **Lazy Loading**: استفاده از `@loadable/component` برای بهینه‌سازی
-- ✅ **Error Boundary**: مدیریت خطاهای رندرینگ
-- ✅ **RTL Support**: پشتیبانی از راست به چپ
-- ✅ **Responsive**: طراحی واکنش‌گرا با Material-UI Grid
+- ✅ **Multiple Input Types**: text, email, password, number, textarea, select, multi-select, auto-complete, checkbox, radio, date-picker, currency, uploader
+- ✅ **Integrated Validation**: Using `react-hook-form` rules
+- ✅ **Theme Customization**: Ability to customize styles for all components
+- ✅ **Grid Layout**: Using Material-UI Grid for layout
+- ✅ **TypeScript**: Full TypeScript support
+- ✅ **Lazy Loading**: Using `@loadable/component` for optimization
+- ✅ **Error Boundary**: Rendering error management
+- ✅ **RTL Support**: Right-to-left support
+- ✅ **Responsive**: Responsive design with Material-UI Grid
 
-## 📝 انواع Input
+## 📝 Input Types
 
 ### 1. Text Field
 
 ```tsx
 {
   name: 'firstName',
-  label: 'نام',
+  label: 'First Name',
   type: 'text', // 'text' | 'email' | 'password' | 'phone' | 'number'
-  placeholder: 'نام خود را وارد کنید',
+  placeholder: 'Enter your name',
   rules: {
-    required: 'نام الزامی است',
+    required: 'First name is required',
     minLength: {
       value: 3,
-      message: 'نام باید حداقل 3 کاراکتر باشد',
+      message: 'Name must be at least 3 characters',
     },
   },
   defaultValue: '',
@@ -125,14 +125,14 @@ function MyForm() {
 ```tsx
 {
   name: 'description',
-  label: 'توضیحات',
+  label: 'Description',
   type: 'text-area',
-  placeholder: 'توضیحات را وارد کنید',
+  placeholder: 'Enter description',
   rules: {
-    required: 'توضیحات الزامی است',
+    required: 'Description is required',
     maxLength: {
       value: 500,
-      message: 'حداکثر 500 کاراکتر مجاز است',
+      message: 'Maximum 500 characters allowed',
     },
   },
   props: {
@@ -147,15 +147,15 @@ function MyForm() {
 ```tsx
 {
   name: 'country',
-  label: 'کشور',
+  label: 'Country',
   type: 'select',
   options: [
-    { value: 'iran', label: 'ایران' },
-    { value: 'usa', label: 'آمریکا' },
-    { value: 'uk', label: 'انگلستان' },
+    { value: 'iran', label: 'Iran' },
+    { value: 'usa', label: 'USA' },
+    { value: 'uk', label: 'UK' },
   ],
   rules: {
-    required: 'انتخاب کشور الزامی است',
+    required: 'Country selection is required',
   },
   defaultValue: '',
 }
@@ -166,7 +166,7 @@ function MyForm() {
 ```tsx
 {
   name: 'languages',
-  label: 'زبان‌های برنامه‌نویسی',
+  label: 'Programming Languages',
   type: 'multi-select',
   options: [
     { value: 'javascript', label: 'JavaScript' },
@@ -174,7 +174,7 @@ function MyForm() {
     { value: 'python', label: 'Python' },
   ],
   rules: {
-    required: 'حداقل یک زبان را انتخاب کنید',
+    required: 'Please select at least one language',
   },
   defaultValue: [],
 }
@@ -185,20 +185,20 @@ function MyForm() {
 ```tsx
 {
   name: 'city',
-  label: 'شهر',
+  label: 'City',
   type: 'auto-complete',
   options: [
-    { value: 'tehran', label: 'تهران' },
-    { value: 'isfahan', label: 'اصفهان' },
-    { value: 'shiraz', label: 'شیراز' },
+    { value: 'tehran', label: 'Tehran' },
+    { value: 'isfahan', label: 'Isfahan' },
+    { value: 'shiraz', label: 'Shiraz' },
   ],
   isLoading: false,
   onReachEnd: () => {
-    // برای لود کردن داده‌های بیشتر (infinite scroll)
+    // For loading more data (infinite scroll)
     console.log('Load more data');
   },
   rules: {
-    required: 'انتخاب شهر الزامی است',
+    required: 'City selection is required',
   },
 }
 ```
@@ -208,10 +208,10 @@ function MyForm() {
 ```tsx
 {
   name: 'agree',
-  label: 'قوانین را می‌پذیرم',
+  label: 'I agree to the terms',
   type: 'checkbox',
   rules: {
-    required: 'باید قوانین را بپذیرید',
+    required: 'You must agree to the terms',
   },
   defaultValue: false,
 }
@@ -222,16 +222,16 @@ function MyForm() {
 ```tsx
 {
   name: 'interests',
-  label: 'علاقه‌مندی‌ها',
+  label: 'Interests',
   type: 'multi-checkbox',
   multiple: true,
   options: [
-    { value: 'sports', label: 'ورزش' },
-    { value: 'music', label: 'موسیقی' },
-    { value: 'reading', label: 'مطالعه' },
+    { value: 'sports', label: 'Sports' },
+    { value: 'music', label: 'Music' },
+    { value: 'reading', label: 'Reading' },
   ],
   rules: {
-    required: 'حداقل یک مورد را انتخاب کنید',
+    required: 'Please select at least one option',
   },
   defaultValue: [],
 }
@@ -242,14 +242,14 @@ function MyForm() {
 ```tsx
 {
   name: 'gender',
-  label: 'جنسیت',
+  label: 'Gender',
   type: 'radio',
   options: [
-    { value: 'male', label: 'مرد' },
-    { value: 'female', label: 'زن' },
+    { value: 'male', label: 'Male' },
+    { value: 'female', label: 'Female' },
   ],
   rules: {
-    required: 'انتخاب جنسیت الزامی است',
+    required: 'Gender selection is required',
   },
 }
 ```
@@ -259,10 +259,10 @@ function MyForm() {
 ```tsx
 {
   name: 'birthDate',
-  label: 'تاریخ تولد',
+  label: 'Birth Date',
   type: 'date-picker',
   rules: {
-    required: 'تاریخ تولد الزامی است',
+    required: 'Birth date is required',
   },
   props: {
     format: 'YYYY/MM/DD',
@@ -276,16 +276,16 @@ function MyForm() {
 ```tsx
 {
   name: 'price',
-  label: 'قیمت',
+  label: 'Price',
   type: 'currency',
   rules: {
-    required: 'قیمت الزامی است',
+    required: 'Price is required',
     min: {
       value: 0,
-      message: 'قیمت نمی‌تواند منفی باشد',
+      message: 'Price cannot be negative',
     },
   },
-  currencyIcon: <Typography>تومان</Typography>,
+  currencyIcon: <Typography>USD</Typography>,
   defaultValue: 0,
 }
 ```
@@ -295,11 +295,11 @@ function MyForm() {
 ```tsx
 {
   name: 'documents',
-  label: 'مدارک',
+  label: 'Documents',
   type: 'uploader',
   multiple: true,
   rules: {
-    required: 'آپلود فایل الزامی است',
+    required: 'File upload is required',
   },
   onDelete: (index: number) => {
     console.log('Delete file at index:', index);
@@ -315,25 +315,25 @@ function MyForm() {
 
 ### Form Component
 
-کامپوننت اصلی برای رندر کردن فرم.
+Main component for rendering forms.
 
 #### Props
 
-| Prop                 | Type                                   | Default      | Description                          |
-| -------------------- | -------------------------------------- | ------------ | ------------------------------------ |
-| `schema`             | `TFormSchema`                          | **required** | آرایه‌ای از تعاریف input ها          |
-| `form`               | `UseFormReturn`                        | **required** | نمونه `useForm` از `react-hook-form` |
-| `gridContainerProps` | `GridProps`                            | -            | Props برای Grid container            |
-| `gridItemProps`      | `GridProps`                            | `{ xs: 4 }`  | Props پیش‌فرض برای Grid items        |
-| `itemProps`          | `any`                                  | -            | Props مشترک برای تمام input ها       |
-| `labelsProps`        | `TypographyProps`                      | -            | Props برای label ها                  |
-| `hideRequiredStar`   | `boolean`                              | `false`      | مخفی کردن ستاره required             |
-| `inputLabelMode`     | `'static' \| 'relative'`               | `'static'`   | حالت نمایش label                     |
-| `inputVariants`      | `'outlined' \| 'filled' \| 'standard'` | `'outlined'` | نوع variant برای input ها            |
-| `withoutHelperText`  | `boolean`                              | -            | مخفی کردن helper text                |
-| `disabled`           | `boolean`                              | -            | غیرفعال کردن تمام input ها           |
+| Prop                 | Type                                   | Default      | Description                               |
+| -------------------- | -------------------------------------- | ------------ | ----------------------------------------- |
+| `schema`             | `TFormSchema`                          | **required** | Array of input definitions                |
+| `form`               | `UseFormReturn`                        | **required** | `useForm` instance from `react-hook-form` |
+| `gridContainerProps` | `GridProps`                            | -            | Props for Grid container                  |
+| `gridItemProps`      | `GridProps`                            | `{ xs: 4 }`  | Default props for Grid items              |
+| `itemProps`          | `any`                                  | -            | Common props for all inputs               |
+| `labelsProps`        | `TypographyProps`                      | -            | Props for labels                          |
+| `hideRequiredStar`   | `boolean`                              | `false`      | Hide required star                        |
+| `inputLabelMode`     | `'static' \| 'relative'`               | `'static'`   | Label display mode                        |
+| `inputVariants`      | `'outlined' \| 'filled' \| 'standard'` | `'outlined'` | Variant type for inputs                   |
+| `withoutHelperText`  | `boolean`                              | -            | Hide helper text                          |
+| `disabled`           | `boolean`                              | -            | Disable all inputs                        |
 
-#### مثال استفاده
+#### Usage Example
 
 ```tsx
 <Form
@@ -347,17 +347,17 @@ function MyForm() {
 
 ### FormProvider Component
 
-Provider برای مدیریت theme و custom inputs در سطح اپلیکیشن.
+Provider for managing theme and custom inputs at the application level.
 
 #### Props
 
-| Prop           | Type              | Default      | Description                   |
-| -------------- | ----------------- | ------------ | ----------------------------- |
-| `theme`        | `TFormTheme`      | -            | Theme برای سفارشی‌سازی استایل |
-| `customInputs` | `ICustomInputs[]` | `[]`         | کامپوننت‌های input سفارشی     |
-| `children`     | `ReactNode`       | **required** | محتوای فرم                    |
+| Prop           | Type              | Default      | Description                  |
+| -------------- | ----------------- | ------------ | ---------------------------- |
+| `theme`        | `TFormTheme`      | -            | Theme for customizing styles |
+| `customInputs` | `ICustomInputs[]` | `[]`         | Custom input components      |
+| `children`     | `ReactNode`       | **required** | Form content                 |
 
-#### مثال استفاده
+#### Usage Example
 
 ```tsx
 <FormProvider theme={customTheme} customInputs={[]}>
@@ -367,35 +367,35 @@ Provider برای مدیریت theme و custom inputs در سطح اپلیکیش
 
 ### Base Input Properties
 
-تمام input ها از این properties پایه استفاده می‌کنند:
+All inputs use these base properties:
 
-| Property            | Type                                   | Description                          |
-| ------------------- | -------------------------------------- | ------------------------------------ |
-| `name`              | `string`                               | **required** - نام فیلد در فرم       |
-| `label`             | `ReactNode`                            | **required** - برچسب فیلد            |
-| `type`              | `string`                               | نوع input                            |
-| `rules`             | `RegisterOptions`                      | قوانین validation از react-hook-form |
-| `defaultValue`      | `any`                                  | مقدار پیش‌فرض                        |
-| `placeholder`       | `string`                               | placeholder                          |
-| `disabled`          | `boolean`                              | غیرفعال کردن فیلد                    |
-| `readonly`          | `boolean`                              | فقط خواندنی کردن فیلد                |
-| `helperText`        | `string`                               | متن راهنما                           |
-| `withoutHelperText` | `boolean`                              | مخفی کردن helper text                |
-| `gridItemProp`      | `GridProps`                            | Props برای Grid item این فیلد        |
-| `labelProps`        | `TypographyProps`                      | Props برای label این فیلد            |
-| `variant`           | `'outlined' \| 'filled' \| 'standard'` | نوع variant                          |
-| `inputLabelMode`    | `'static' \| 'relative'`               | حالت نمایش label                     |
+| Property            | Type                                   | Description                           |
+| ------------------- | -------------------------------------- | ------------------------------------- |
+| `name`              | `string`                               | **required** - Field name in form     |
+| `label`             | `ReactNode`                            | **required** - Field label            |
+| `type`              | `string`                               | Input type                            |
+| `rules`             | `RegisterOptions`                      | Validation rules from react-hook-form |
+| `defaultValue`      | `any`                                  | Default value                         |
+| `placeholder`       | `string`                               | Placeholder                           |
+| `disabled`          | `boolean`                              | Disable field                         |
+| `readonly`          | `boolean`                              | Make field read-only                  |
+| `helperText`        | `string`                               | Helper text                           |
+| `withoutHelperText` | `boolean`                              | Hide helper text                      |
+| `gridItemProp`      | `GridProps`                            | Props for Grid item of this field     |
+| `labelProps`        | `TypographyProps`                      | Props for label of this field         |
+| `variant`           | `'outlined' \| 'filled' \| 'standard'` | Variant type                          |
+| `inputLabelMode`    | `'static' \| 'relative'`               | Label display mode                    |
 
 ## 🎨 Theme Customization
 
-می‌توانید استایل تمام کامپوننت‌ها را از طریق `theme` سفارشی کنید:
+You can customize the styles of all components through the `theme`:
 
 ```tsx
 import { TFormTheme } from "react-hook-form-gen";
 
 const customTheme: TFormTheme = {
   text: {
-    // استایل برای input های text
+    // Styles for text inputs
     sx: {
       backgroundColor: "#f5f5f5",
     },
@@ -409,18 +409,18 @@ const customTheme: TFormTheme = {
   },
   datePicker: {
     datePickerProps: {
-      // استایل برای date picker
+      // Styles for date picker
     },
   },
   checkbox: {
     checkboxProps: {
-      // استایل برای checkbox
+      // Styles for checkbox
     },
     formControlLabelProps: {
-      // استایل برای label checkbox
+      // Styles for checkbox label
     },
   },
-  // ... سایر انواع
+  // ... other types
 };
 
 <FormProvider theme={customTheme}>
@@ -428,34 +428,34 @@ const customTheme: TFormTheme = {
 </FormProvider>;
 ```
 
-### اولویت استایل
+### Style Priority
 
-استایل‌ها با اولویت زیر اعمال می‌شوند:
+Styles are applied with the following priority:
 
-1. `props` در schema (بالاترین اولویت)
-2. `itemProps` در schema
-3. `theme` از FormProvider
-4. استایل پیش‌فرض
+1. `props` in schema (highest priority)
+2. `itemProps` in schema
+3. `theme` from FormProvider
+4. Default styles
 
 ## ✅ Validation
 
-استفاده از قوانین validation `react-hook-form`:
+Using `react-hook-form` validation rules:
 
 ```tsx
 {
   name: 'email',
-  label: 'ایمیل',
+  label: 'Email',
   type: 'email',
   rules: {
-    required: 'ایمیل الزامی است',
+    required: 'Email is required',
     pattern: {
       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      message: 'ایمیل معتبر نیست',
+      message: 'Invalid email address',
     },
     validate: (value) => {
-      // validation سفارشی
+      // Custom validation
       if (value === 'test@example.com') {
-        return 'این ایمیل مجاز نیست';
+        return 'This email is not allowed';
       }
       return true;
     },
@@ -463,35 +463,35 @@ const customTheme: TFormTheme = {
 }
 ```
 
-### قوانین رایج
+### Common Rules
 
 ```tsx
 // Required
 rules: {
-  required: 'این فیلد الزامی است',
+  required: 'This field is required',
 }
 
 // Min/Max Length
 rules: {
   minLength: {
     value: 3,
-    message: 'حداقل 3 کاراکتر',
+    message: 'Minimum 3 characters',
   },
   maxLength: {
     value: 50,
-    message: 'حداکثر 50 کاراکتر',
+    message: 'Maximum 50 characters',
   },
 }
 
-// Min/Max Value (برای number)
+// Min/Max Value (for number)
 rules: {
   min: {
     value: 0,
-    message: 'مقدار باید مثبت باشد',
+    message: 'Value must be positive',
   },
   max: {
     value: 100,
-    message: 'مقدار باید کمتر از 100 باشد',
+    message: 'Value must be less than 100',
   },
 }
 
@@ -499,14 +499,14 @@ rules: {
 rules: {
   pattern: {
     value: /^[0-9]+$/,
-    message: 'فقط اعداد مجاز است',
+    message: 'Only numbers are allowed',
   },
 }
 ```
 
-## 🔥 مثال‌های پیشرفته
+## 🔥 Advanced Examples
 
-### مثال 1: فرم ثبت‌نام کامل
+### Example 1: Complete Signup Form
 
 ```tsx
 import { useForm } from "react-hook-form";
@@ -520,75 +520,75 @@ function SignupForm() {
   const schema: TSchema[] = [
     {
       name: "firstName",
-      label: "نام",
+      label: "First Name",
       type: "text",
       gridItemProp: { xs: 12, md: 6 },
       rules: {
-        required: "نام الزامی است",
+        required: "First name is required",
       },
     },
     {
       name: "lastName",
-      label: "نام خانوادگی",
+      label: "Last Name",
       type: "text",
       gridItemProp: { xs: 12, md: 6 },
       rules: {
-        required: "نام خانوادگی الزامی است",
+        required: "Last name is required",
       },
     },
     {
       name: "email",
-      label: "ایمیل",
+      label: "Email",
       type: "email",
       gridItemProp: { xs: 12 },
       rules: {
-        required: "ایمیل الزامی است",
+        required: "Email is required",
         pattern: {
           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-          message: "ایمیل معتبر نیست",
+          message: "Invalid email address",
         },
       },
     },
     {
       name: "password",
-      label: "رمز عبور",
+      label: "Password",
       type: "password",
       gridItemProp: { xs: 12 },
       rules: {
-        required: "رمز عبور الزامی است",
+        required: "Password is required",
         minLength: {
           value: 8,
-          message: "رمز عبور باید حداقل 8 کاراکتر باشد",
+          message: "Password must be at least 8 characters",
         },
       },
     },
     {
       name: "country",
-      label: "کشور",
+      label: "Country",
       type: "select",
       gridItemProp: { xs: 12, md: 6 },
       options: [
-        { value: "iran", label: "ایران" },
-        { value: "usa", label: "آمریکا" },
+        { value: "iran", label: "Iran" },
+        { value: "usa", label: "USA" },
       ],
       rules: {
-        required: "انتخاب کشور الزامی است",
+        required: "Country selection is required",
       },
     },
     {
       name: "agree",
-      label: "قوانین را می‌پذیرم",
+      label: "I agree to the terms",
       type: "checkbox",
       gridItemProp: { xs: 12 },
       rules: {
-        required: "باید قوانین را بپذیرید",
+        required: "You must agree to the terms",
       },
     },
   ];
 
   const handleSubmit = (data: any) => {
     console.log("Signup Data:", data);
-    // ارسال داده به سرور
+    // Send data to server
   };
 
   return (
@@ -600,7 +600,7 @@ function SignupForm() {
       >
         <Form schema={schema} form={form} />
         <Button type="submit" variant="contained" size="large">
-          ثبت‌نام
+          Sign Up
         </Button>
       </Stack>
     </FormProvider>
@@ -608,7 +608,7 @@ function SignupForm() {
 }
 ```
 
-### مثال 2: استفاده از Grid Layout
+### Example 2: Using Grid Layout
 
 ```tsx
 <Form
@@ -625,7 +625,7 @@ function SignupForm() {
 />
 ```
 
-### مثال 3: استفاده از Theme
+### Example 3: Using Theme
 
 ```tsx
 const theme: TFormTheme = {
@@ -650,35 +650,35 @@ const theme: TFormTheme = {
 </FormProvider>;
 ```
 
-### مثال 4: Auto Complete با Infinite Scroll
+### Example 4: Auto Complete with Infinite Scroll
 
 ```tsx
 {
   name: 'city',
-  label: 'شهر',
+  label: 'City',
   type: 'auto-complete',
   isLoading: loading,
   options: cities,
   onReachEnd: () => {
-    // لود کردن شهرهای بیشتر
+    // Load more cities
     loadMoreCities();
   },
 }
 ```
 
-### مثال 5: Uploader با مدیریت فایل
+### Example 5: Uploader with File Management
 
 ```tsx
 {
   name: 'documents',
-  label: 'مدارک',
+  label: 'Documents',
   type: 'uploader',
   multiple: true,
   rules: {
-    required: 'آپلود فایل الزامی است',
+    required: 'File upload is required',
     validate: (value) => {
       if (!value?.files || value.files.length === 0) {
-        return 'حداقل یک فایل آپلود کنید';
+        return 'Please upload at least one file';
       }
       return true;
     },
@@ -698,24 +698,24 @@ const theme: TFormTheme = {
 }
 ```
 
-### مثال 6: Conditional Fields
+### Example 6: Conditional Fields
 
 ```tsx
 const schema: TSchema[] = [
   {
     name: "hasAddress",
-    label: "آدرس دارم",
+    label: "I have an address",
     type: "checkbox",
   },
-  // نمایش فیلد آدرس فقط اگر checkbox تیک خورده باشد
+  // Show address field only if checkbox is checked
   ...(form.watch("hasAddress")
     ? [
         {
           name: "address",
-          label: "آدرس",
+          label: "Address",
           type: "text-area",
           rules: {
-            required: "آدرس الزامی است",
+            required: "Address is required",
           },
         },
       ]
@@ -723,9 +723,9 @@ const schema: TSchema[] = [
 ];
 ```
 
-## 🛠️ کامپوننت‌های جداگانه
+## 🛠️ Standalone Components
 
-می‌توانید از کامپوننت‌های input به صورت جداگانه نیز استفاده کنید:
+You can also use input components separately:
 
 ```tsx
 import {
@@ -734,45 +734,45 @@ import {
   UFCheckbox,
   UFDatePicker,
   UFAutoComplete,
-  // ... سایر کامپوننت‌ها
+  // ... other components
 } from "react-hook-form-gen";
 
-// استفاده مستقیم
+// Direct usage
 <UFTextField
   form={form}
   name="firstName"
-  label="نام"
+  label="First Name"
   type="text"
   error={form.formState.errors.firstName}
 />;
 ```
 
-## 📝 نکات مهم
+## 📝 Important Notes
 
-1. **FormProvider**: همیشه فرم را داخل `FormProvider` قرار دهید تا theme و context در دسترس باشد.
+1. **FormProvider**: Always wrap your form inside `FormProvider` so that theme and context are available.
 
-2. **Grid Layout**: به صورت پیش‌فرض هر فیلد `xs={4}` است. می‌توانید با `gridItemProps` یا `gridItemProp` در هر فیلد تغییر دهید.
+2. **Grid Layout**: By default, each field is `xs={4}`. You can change this with `gridItemProps` or `gridItemProp` for each field.
 
-3. **Validation**: از قوانین `react-hook-form` استفاده کنید. پیام‌های خطا به صورت خودکار نمایش داده می‌شوند.
+3. **Validation**: Use `react-hook-form` rules. Error messages are displayed automatically.
 
-4. **TypeScript**: تمام types در `type.d.ts` تعریف شده‌اند. از TypeScript برای type safety استفاده کنید.
+4. **TypeScript**: All types are defined in `type.d.ts`. Use TypeScript for type safety.
 
-5. **Performance**: کامپوننت‌ها با `@loadable/component` lazy load می‌شوند تا performance بهتری داشته باشید.
+5. **Performance**: Components are lazy loaded with `@loadable/component` for better performance.
 
-6. **RTL Support**: پکیج از راست به چپ پشتیبانی می‌کند. برای فعال کردن، theme Material-UI را تنظیم کنید.
+6. **RTL Support**: The package supports right-to-left. To enable it, configure the Material-UI theme.
 
-## 🤝 مشارکت
+## 🤝 Contributing
 
-مشارکت شما در بهبود این پکیج خوشآمد است! لطفاً issues و pull requests را ارسال کنید.
+Your contributions to improving this package are welcome! Please submit issues and pull requests.
 
-## 📄 لایسنس
+## 📄 License
 
 ISC
 
-## 👤 نویسنده
+## 👤 Author
 
 Mohammad
 
 ---
 
-**نکته**: این داکیومنت به صورت مداوم به‌روزرسانی می‌شود. برای آخرین تغییرات، به [GitHub Repository](https://github.com/your-repo) مراجعه کنید.
+**Note**: This documentation is continuously updated. For the latest changes, visit the [GitHub Repository](https://github.com/your-repo).
